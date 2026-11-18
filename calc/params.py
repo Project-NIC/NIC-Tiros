@@ -1,7 +1,7 @@
-"""NIC-Tiros, level 4 — every input number has its home here, once.
+"""NIC-Tiros — every input number has its home here, once.
 
-Each value carries where it comes from. "memory" marks a figure not yet read in a sheet: it is to
-be confirmed at level 5 before anything is built on it (RULES.md: what is not known is not built).
+Each value carries where it comes from. "unread" marks a figure not yet read in a sheet: it is to
+be confirmed in its sheet before anything is built on it — what is not known is not built.
 """
 
 # --- what is recorded (the requirements' orders; ~4000 a second for motion) ---------
@@ -67,7 +67,7 @@ I2C_READ_OVERHEAD_B = 4     # address, register, repeated start, address
 
 # --- the motion sensor's FIFO and the memory's pauses -------------------------------------------
 IMU_FIFO_BYTES = 4500       # "Smart FIFO up to 4.5 KB" (ST DS14623 rev 3, LSM6DSV320X, p. 1)
-IMU_FIFO_WORD_BYTES = 7     # one tag byte + six data bytes a word (ST's FIFO format — memory)
+IMU_FIFO_WORD_BYTES = 7     # one tag byte + six data bytes a word (ST's FIFO format — unread)
 IMU_WORDS_PER_SAMPLE = 3    # low-g, high-g, gyro
 MCU_READ_LATENCY_S = 0.005  # the longest the processor may leave the FIFO unread — a design aim
 CARD_PAUSE_S = {"Strelka's pass mark": 0.050, "SD standard's write busy (memory)": 0.250,
@@ -99,7 +99,7 @@ PORT_L_MM = 1.0             # the wall's thickness
 CHAMBER_CM3 = (2, 20, 100)  # a small chamber round the barometer … a whole bay
 G = 9.81
 SCALE_HEIGHT_M = 8400       # p falls ~1/8400 per metre near the ground
-BARO_NOISE_PA = 1.0         # an order for a small barometer in a fast mode — its sheet at level 5
+BARO_NOISE_PA = 1.0         # an order for a small barometer in a fast mode — the BMP585's own figures in parts.md
 
 # --- Able on a long flight ----------------------------------------------
 ABLE_LONG_MAH = 600        # an example cell
@@ -110,17 +110,17 @@ ABLE_PACKET_EVERY_S = 60
 # --- the contact's magnets near the magnetometer --------------------------------------------------
 MAGNET_D_MM = 3.0           # an assumed disc, Ø 3 × 2 mm, N45 — the real ones asked of the seller
 MAGNET_H_MM = 2.0
-MAGNET_BR_T = 1.3           # N45 remanence, ~1.3 T (a handbook figure — memory)
+MAGNET_BR_T = 1.3           # N45 remanence, ~1.3 T (a handbook figure — unread)
 MAGNET_PAIR_GAP_MM = 27.2   # the Belka's contact pair is 27.2 mm long, a magnet at each end, poles opposite (NIC-Strelka's contact)
-MAGNET_TEMPCO = -0.0012     # NdFeB, about −0.12 % per K (a handbook figure — memory)
+MAGNET_TEMPCO = -0.0012     # NdFeB, about −0.12 % per K (a handbook figure — unread)
 EARTH_FIELD_UT = 49         # here, roughly
-MAG_RANGE_UT = 800          # the magnetometers' range, ±800 µT (RM3100, MMC5983MA — memory, their sheets at level 5)
+MAG_RANGE_UT = 800          # the magnetometers' range, ±800 µT (RM3100, MMC5983MA — both read, parts.md)
 MAG_DISTANCE_MM = (15, 20, 30, 50, 70)
 TEMP_SWING_K = 20
 
 # --- self-heating inside an insulated box --------------------------------
 CELL_V = 3.2                # LiFePO4, nominal
-INSULATION_K = 0.035        # W/(m·K), expanded polystyrene (a handbook figure — memory)
+INSULATION_K = 0.035        # W/(m·K), expanded polystyrene (a handbook figure — unread)
 INSULATION_MM = (3, 5, 10)
 BOX_AREA_CM2 = {"Baker": 30, "Able": 80}   # outer surface, rough
 

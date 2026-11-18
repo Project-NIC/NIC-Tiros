@@ -1,4 +1,4 @@
-# NIC-Tiros — Hamilton's states (level 6)
+# NIC-Tiros — Hamilton's states
 
 <p align="center"><img src="pictures/Hamilton.jpg" width="500" alt="Hamilton"/></p>
 

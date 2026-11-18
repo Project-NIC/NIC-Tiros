@@ -1,4 +1,4 @@
-# NIC-Tiros — purpose (level 1)
+# NIC-Tiros — purpose
 
 **What it does.** A unit that records what it goes through — acceleration, rotation, the magnetic
 field, the air's pressure, temperature and humidity — into its own memory, sends a live view of it

@@ -1,4 +1,4 @@
-# NIC-Tiros — the boot log (level 6)
+# NIC-Tiros — the boot log
 
 **The last 64 starts, kept through power-off**: why the
 unit started, how each step of the start went and how long it took, and the last words of the run

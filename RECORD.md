@@ -1,4 +1,4 @@
-# NIC-Tiros — the record: its profile in MUF (level 6)
+# NIC-Tiros — the record: its profile in MUF
 
 Tiros writes **MUF**, Project-NIC's format ([`MUF.md`](https://github.com/Project-NIC/NIC-SDK/blob/main/MUF.md), its core); this is Tiros's profile —
 its streams, its groups, its fields. The mark and the extension **`MUFT`**; a file
@@ -59,8 +59,9 @@ CSV: `kind` (rocket, plane, drone, …), `name`, `motor`, `mass`, `place`, `note
 
 ## Before the launch
 
-Not the format's matter but the firmware's: an **auto-start** — the last 2–3 s kept in a ring in
-RAM; at the launch written first, their steps continuing; the file stays straight.
+Not the format's matter but the firmware's ([`HAMILTON.md`](HAMILTON.md)): the last seconds kept in
+a ring in RAM (`PRE_S`, 3 s by default); at the launch written first, their steps continuing; the
+file stays straight.
 
 ## The sizes
 

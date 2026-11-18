@@ -1,4 +1,4 @@
-"""NIC-Tiros, level 4 — the pressure port and the apogee. Run: python3 calc/pressure.py
+"""NIC-Tiros — the pressure port and the apogee. Run: python3 calc/pressure.py
 Writes calc/out/pressure.md and calc/out/apogee.svg. A rough sketch: every rocket differs.
 """
 import math, os, random

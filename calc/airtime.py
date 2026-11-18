@@ -1,4 +1,4 @@
-"""NIC-Tiros, level 6 — the radio frames' time on air. Run: python3 calc/airtime.py
+"""NIC-Tiros — the radio frames' time on air. Run: python3 calc/airtime.py
 Writes calc/out/airtime.md. The formula: Semtech SX1261/2 datasheet rev 1.2, 6.1.4 (SF7-SF12;
 explicit header, CRC on, coding rate 4/5, preamble 8 symbols; the low-data-rate optimisation on
 where a symbol lasts 16.38 ms or more, as 6.1.1 advises). The frame sizes: RADIO.md.

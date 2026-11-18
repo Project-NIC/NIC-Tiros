@@ -1,4 +1,4 @@
-# NIC-Tiros — Ham, the receiver on the ground (level 6)
+# NIC-Tiros — Ham, the receiver on the ground
 
 <p align="center"><img src="pictures/Ham.jpg" width="500" alt="Ham"/></p>
 

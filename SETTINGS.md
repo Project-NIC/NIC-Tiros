@@ -1,4 +1,4 @@
-# NIC-Tiros — the settings (level 6)
+# NIC-Tiros — the settings
 
 **Every setting of the firmware is open to the user** — set before a flight, kept in the unit.
 The professionals' way, ArduPilot's and PX4's: **named parameters**, each a name, a value and its

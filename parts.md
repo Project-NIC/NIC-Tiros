@@ -1,8 +1,8 @@
-# NIC-Tiros — parts (level 5)
+# NIC-Tiros — parts
 
 Each part named against the requirement it meets. **Sheet:** where its figures were read (the
 maker's documents), or **to read** — nothing is built on a part whose
-sheet is not read. No pins here (level 6).
+sheet is not read. No pins here ([`PINS.md`](PINS.md)).
 
 ## Goddard — Baker and Able
 
@@ -24,7 +24,7 @@ sheet is not read. No pins here (level 6).
 | radio | **a SX1262 module with an antenna socket** — proposed **Seeed Wio-SX1262** with IPEX, 11.6 × 11 × 2.95 mm, 862–930 MHz, 22 dBm; else M5Stack's Stamp LoRa-1262 I, 14 × 10 × 2.4 mm, its socket IPEX-4 (MHF4) | LGA/stamp | LoRa 868 MHz; the chip's figures from Semtech's sheet: −124 / −137 dBm, 45 mA sending, 5.3 mA listening, 0.6 µA asleep | read — −40 to +85 °C; VCC 1.8–3.6 V, so straight from the LiFePO4 cell or a rail; 125 mA at 22 dBm; asleep 1.62 µA |
 | radio antenna | **open**, by length (below): in Baker's body a wire or a short rod; an 868 MHz antenna on Able's box | — | the link's margins in `calc/out/numbers.md` | — |
 | cell, Able | **LTOPOW LFP103042, LiFePO4** | pouch 10 × 30 × 42 mm, 14 g | 720 mAh at 3.2 V; LiFePO4 for the shocks and its safety; charge 0–45 °C, **discharge −10 to 80 °C** — the cold limit is the cell's, not the electronics' | read (LTOPOW's product page) |
-| cell, Baker | **LiFePO4, a cylindrical 10440** — (Ø 10 × 44 mm, AAA-sized, some 200 mAh — memory), a steel can that bears the shocks better than a pouch; a narrow pouch if one is offered (LTOPOW's list has none under 25 mm wide) | — | Baker's energy (`calc/`); its steel can a soft-iron mass, kept from the magnetometer and calibrated | **to choose**, its sheet to read |
+| cell, Baker | **LiFePO4, a cylindrical 10440** — (Ø 10 × 44 mm, AAA-sized, some 200 mAh as sellers give it), a steel can that bears the shocks better than a pouch; a narrow pouch if one is offered (LTOPOW's list has none under 25 mm wide) | — | Baker's energy (`calc/`); its steel can a soft-iron mass, kept from the magnetometer and calibrated | **to choose**, its sheet to read |
 | clocks | a 32 MHz crystal (the nRF54LM20 needs it), a 32.768 kHz one | 2016, 2012 | the radio's clock; the time between GNSS fixes | read — below |
 
 ## The power tree — proposed, as NIC-Strelka's Belka's and Kryska's
@@ -108,13 +108,13 @@ phone: no 5 GHz, no newer Wi-Fi is wanted. **Others will do as well** — new ch
 boards (an ESP32-C5 or C6 with an SX1262: LilyGO's T-LoRa C6, M5Stack's Unit C6L, Heltec's
 RadioCore RCC6); any board with an SX1262 at 868 MHz, an antenna socket and a cell's charger.
 
-## Open at this level
+## Open
 
 1. **Baker's 10440:** sellers give some 200 mAh (Keeppower, Orange; a Russian spec 280 mAh at 0.2 C —
    promelec.ru), none a temperature range; a maker's own sheet to be had.
 2. The 868 MHz antennas: the table above; their sheets to read before the guide names them.
 3. The small parts — the microSD socket, the SMA bulkheads, the U.FL sockets — by JLCPCB's codes.
    The datasheet's reference circuit is for the CSP98; the QFN52's own reference layout (Nordic's
-   product page) is wanted at level 6, when the board is drawn — for its pins and the unused
+   product page) is wanted when the board is drawn — for its pins and the unused
    antenna pin's termination.
 4. The sheets marked "to read".

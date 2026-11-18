@@ -1,4 +1,4 @@
-# NIC-Tiros — the processor's pins (level 6)
+# NIC-Tiros — the processor's pins
 
 For drawing Goddard's board in EasyEDA. The nRF54LM20A in its **QFN52** (6 × 6 mm): 32 GPIO —
 P0 six, P1 twenty, P2 six; USB, SWD, the antenna and the 32 MHz crystal on pins of their own.

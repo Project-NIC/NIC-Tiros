@@ -1,4 +1,4 @@
-# NIC-Tiros — requirements (level 2)
+# NIC-Tiros — requirements
 
 Ranges and orders of magnitude only; no parts. What is not known is marked **open**
 and is not filled in by guess.
@@ -81,9 +81,9 @@ humidity ~one; position ~one to ten.
 - **Temperature: the electronics −40 to +85 °C** — the industrial range, every part rated for it. Flying in frost is rare (models have
   no de-icing; icing brings a plane down), but a dark body on a pad in the sun runs far above the
   air. **The cell is narrower:** a lithium cell is not charged below 0 °C and gives little in deep
-  cold — its own range from its sheet, at the parts level.
+  cold — its own range from its sheet ([`parts.md`](parts.md)).
 
 ## Not wanted
 
-- No steering, no guidance of any kind (level 1).
+- No steering, no guidance of any kind.
 - No price limit: the fewest parts, current parts, nothing older than needed.

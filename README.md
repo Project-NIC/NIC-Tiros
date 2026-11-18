@@ -16,8 +16,8 @@ fraction of what such trackers are sold for. It steers nothing.**
 > ⚠️ **A concept.** The purpose, the requirements, the architecture, the sums and the parts are
 > settled; of the detail, the radio's frames, the settings, the boot log, the firmware's states and
 > Ham's page are agreed; the antennas and the contact are still being weighed; no board is drawn
-> and nothing is built. The project grows level by level — purpose, requirements, architecture,
-> principle, parts, detail — a level begun when the one above it is closed.
+> and nothing is built. The project grows in steps — purpose, requirements, architecture,
+> principle, parts, detail — each begun when the one before it is settled.
 
 ## The units
 

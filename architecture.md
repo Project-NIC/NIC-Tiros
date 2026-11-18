@@ -1,4 +1,4 @@
-# NIC-Tiros — architecture (level 3)
+# NIC-Tiros — architecture
 
 <p align="center"><img src="pictures/Goddard.jpg" width="500" alt="Goddard"/></p>
 
@@ -64,11 +64,12 @@ which the position's pulse each second ties to true time. No common sample clock
 | **climb**, **descent** | full rate into memory; the live view on the radio |
 | **landed** | the sensors off; the position slowly, robustly, now and then; listening after each packet |
 
-Set out in detail at level 6 in [`HAMILTON.md`](HAMILTON.md): **the launch, the top and the
+Set out in detail in [`HAMILTON.md`](HAMILTON.md): **the launch, the top and the
 landing** are found by the unit itself, each by conditions that are settings, the radio's START
 and STOP beside them (a change made there, [`WHY.md`](WHY.md)).
 
 ## Not here
 
-The rates, the sizes, the energy — level 4, as scripts. The parts — level 5. The pins, the
-frames byte by byte — level 6, every frame first set out as a byte table.
+The rates, the sizes, the energy — [`principle.md`](principle.md) and [`calc/`](calc/), as scripts.
+The parts — [`parts.md`](parts.md). The pins, the frames byte by byte — [`PINS.md`](PINS.md),
+[`RADIO.md`](RADIO.md) and the rest, every frame set out as a byte table.

@@ -1,4 +1,4 @@
-"""NIC-Tiros, level 4 — what the contact's magnets do to the magnetometer. Run: python3 calc/magnet.py
+"""NIC-Tiros — what the contact's magnets do to the magnetometer. Run: python3 calc/magnet.py
 A dipole sketch: one magnet, and the Belka-like pair of opposite poles. Writes calc/out/magnet.md."""
 import math, os
 import params as p

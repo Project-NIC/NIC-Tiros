@@ -1,4 +1,4 @@
-"""NIC-Tiros, level 6 — the record's size. Run: python3 calc/record.py
+"""NIC-Tiros — the record's size. Run: python3 calc/record.py
 Writes calc/out/record.md. The streams, their steps a block and rates: RECORD.md; the block of
 512 B and the index block after every 200: NIC-SDK's MUF.md; the defaults: SETTINGS.md.
 """

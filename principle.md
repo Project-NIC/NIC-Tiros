@@ -1,4 +1,4 @@
-# NIC-Tiros — principle (level 4)
+# NIC-Tiros — principle
 
 The physics of each block and its rough sums. **Every number is in `calc/`:** the inputs in
 `calc/params.py`, each with its source, the results in `calc/out/numbers.md`, made by
@@ -63,6 +63,6 @@ switched off and only stored.
 The shared I2C (the field and the air's humidity) and the barometer's own run at a few per cent
 of 400 kHz.
 
-## Done at this level
+## Done here
 The record, the readout, the radio and the bands, the energy landed, on the pad and in flight, the
 GNSS, the FIFO and the RAM ring, the buses, the pressure port — all in `calc/`.

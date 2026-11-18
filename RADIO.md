@@ -1,4 +1,4 @@
-# NIC-Tiros — the radio's frames (level 6)
+# NIC-Tiros — the radio's frames
 
 LoRa between the units (Baker, Able) and up to four Hams. LoRa's own packet already carries a
 preamble, a sync word, a length and a CRC-16; these frames are its payload, every number

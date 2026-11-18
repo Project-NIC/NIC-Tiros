@@ -1,6 +1,6 @@
 # NIC-Tiros — why things changed
 
-## 15 Nov 2026 — level 1 reopened: the standing station out, Able the long recorder
+## 15 Nov 2026 — the purpose changed: the standing station out, Able the long recorder
 
 The project had wandered: Baker is the small unit for rockets and the like; Able the bigger one, Strelka's pattern, with a card for long records in planes;
 Ham the receiver. The standing station in an orchard goes to NIC-Heimdall as its outside unit
@@ -8,7 +8,7 @@ Ham the receiver. The standing station in an orchard goes to NIC-Heimdall as its
 for a mouse and a big one for an elephant.
 
 **What stops holding:** the purpose's station (outdoors for months, the weather, the gardener)
-and Able's sun and outside-sensor connector. Below level 1 nothing was begun; the station's
+and Able's sun and outside-sensor connector. Nothing below the purpose was begun; the station's
 thoughts were set apart.
 
 ## 15–16 Nov 2026 — why this hardware: what was weighed and set aside
@@ -43,11 +43,11 @@ Every figure names its maker's document where it is used.
   not fit a 20 mm body: the chip goes on the board bare.
 - **The standing weather station** — a different use; it went to NIC-Heimdall (above).
 
-## 16 Nov 2026 — level 2 reopened: Able powered from outside on long flights
+## 16 Nov 2026 — the requirements changed: Able powered from outside on long flights
 
 Asked: for long flights the bigger unit should take power from outside — a solar panel.
 **What stops holding:** the requirements' power ("charged from USB" alone); the architecture's
-power block (an input from outside); level 4's energy for Able. The plane's own 5 V added beside
+power block (an input from outside); the energy sums for Able. The plane's own 5 V added beside
 the panel, where a plane has it. Baker unchanged.
 **Closed again the same day**: Able, sealed, takes **any 5 V through its
 one sealed contact** — not only a USB host — and no second input;
@@ -63,7 +63,7 @@ float for weeks are another device.
   3 × 3 mm package, and a third of the speed on three axes; the MMC5983MA is good enough and
   undoes a strong field's mark by its SET/RESET.
 
-## 18 Nov 2026 — level 3's states detailed and changed at level 6
+## 18 Nov 2026 — the architecture's states detailed and changed
 
 `architecture.md` had the launch given by "start" with the motion as a fallback. `HAMILTON.md`
 makes **the launch, the top and the landing the unit's own finding**, each condition a setting
