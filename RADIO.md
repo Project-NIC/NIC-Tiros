@@ -112,7 +112,7 @@ Before the start on channel B, if set (`LIVE_READY_HZ`); in flight on channel B 
 | 14–15 | the acceleration i16, 0.01 g | its magnitude |
 | 16–17 | the roll rate i16, deg/s | about the body's axis |
 | 18 | the phase u8 | as the beacon's |
-| 19 | the events u8, bits | launched, apogee, landed, … as the record's |
+| 19 | the events u8, bits | the record's event n as bit n−1: 0 armed, 1 launched, 2 apogee, 3 landed; held once set |
 | 20 | the cell u8 | 20 mV a step |
 | 21 | the contents u8, bits | bit 0: the GNSS follows |
 
