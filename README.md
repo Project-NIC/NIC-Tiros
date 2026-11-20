@@ -65,6 +65,7 @@ last metres, a fox hunt. The record leaves over USB, as a disk.
 - [`SETTINGS.md`](SETTINGS.md) — every setting, its default and its range.
 - [`RADIO.md`](RADIO.md) — the radio's channels, frames and key, byte by byte.
 - [`BOOTLOG.md`](BOOTLOG.md) — the log of the last starts.
+- [`firmware/`](firmware/README.md) — Hamilton's core in plain C, tested on a computer: the frames, the settings, the states, the record (`make test`).
 - [`HAM.md`](HAM.md) — Ham, the receiver: what it does and its page; [`ham/mockup.html`](ham/mockup.html) the page to click through.
 - [`OPTIONS.md`](OPTIONS.md) — the tree of what was chosen and what else was weighed.
 - [`WHY.md`](WHY.md) — what was taken in and then left, and why.
