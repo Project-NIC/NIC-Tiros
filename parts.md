@@ -118,7 +118,10 @@ A wire need not be straight: it may follow the inside of the body, or be folded 
 the units', a U.FL/IPEX socket for the 868 MHz antenna, Wi-Fi, a cell charged by the board itself
 (100 mA), USB-C; Meshtastic runs on it, so it is known in the field. The rest is software
 ([`HAM.md`](HAM.md)), a box and a good antenna. The S3 is an older chip, but Ham stands beside the
-phone: no 5 GHz, no newer Wi-Fi is wanted. **Others will do as well** — new chips bring new
+phone: no 5 GHz, no newer Wi-Fi is wanted. **Why not the newer ESP32-C5:** no board was found
+with the LoRa built on it sensibly; the S3's kit is bought whole — the power brought to it, the
+board put in a neat box, its two antennas (868 MHz and Wi-Fi) clicked on, nothing else done.
+**Others will do as well** — new chips bring new
 boards (an ESP32-C5 or C6 with an SX1262: LilyGO's T-LoRa C6, M5Stack's Unit C6L, Heltec's
 RadioCore RCC6); any board with an SX1262 at 868 MHz, an antenna socket and a cell's charger.
 
