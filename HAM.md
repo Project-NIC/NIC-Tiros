@@ -85,7 +85,7 @@ antenna — or the arrow drawn on its box — pointing ahead, and one walks.
 orthophoto**, two layers to switch, their detail following the zoom by themselves as such maps
 do; the map library (Leaflet) carried in Ham; every fix received set on it by itself, the last
 one marked. The tiles come over the phone's own mobile data — without it, the coordinates alone,
-to be copied into any map application (Mapy.cz, …) to navigate by. The orthophoto for Czechia
+to be copied into any map application to navigate by. The orthophoto for Czechia
 ČÚZK's, its terms of use to be read.
 
 The height and the vertical speed are Ham's, from the pressures (`RADIO.md`, 2); the unit sends
