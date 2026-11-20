@@ -59,9 +59,13 @@ the number alone.
   same CCM, read only by the set's Hams. Off, anyone may read it, but no one can forge it.
 - **The live view open:** nothing in it to hide, and every byte costs at 20 a second.
 - **No frame twice:** each sender counts its frames in 32 bits — kept through a power-off, as
-  LoRaWAN's frame counter — and the count's low byte rides in the head; the nonce is made of the
-  set, the sender and the whole count. A signed frame with a count not above the last one heard
-  from that sender is dropped.
+  LoRaWAN's frame counter — and the count's low byte rides in the head; **the nonce, 13 B: the set
+  u16, the sender u8, the whole count u32, little-endian, then six zero bytes**. A new set starts
+  every count at 0. Ham takes the whole count as the next above the last it heard from that sender
+  (the low byte's round); a replay has the wrong whole count and its tag fails. A Ham that joins a
+  set late tries the rounds upward until a tag holds. **What the tag covers:** the whole frame
+  before it, nothing encrypted; a hidden beacon has its bytes 6–21 encrypted and the head
+  authenticated (`firmware/common/seal.c`).
 - **The set's number and the signal threshold stay:** the number sorts the teams, the threshold
   keeps a table from being sent to the wrong rocket by mistake; the key is the lock.
 

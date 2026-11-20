@@ -94,4 +94,13 @@ size_t frame_answer_put(uint8_t *out, const struct head *h, const struct answer 
 size_t frame_piece_put(uint8_t *out, const struct head *h, uint32_t whole_crc, uint8_t piece,
 		       uint8_t pieces, const uint8_t *payload, size_t len);
 
+/* The other way, for Ham: each checks the length and the type, 0 good, −1 not this frame. The tag
+ * is checked first, by seal.h. A beacon hidden by BEACON_SECRET is opened before it is read. */
+int frame_beacon_get(const uint8_t *in, size_t len, struct beacon *b);
+int frame_live_get(const uint8_t *in, size_t len, struct live *l);
+int frame_answer_get(const uint8_t *in, size_t len, struct answer *a);
+/* A piece: its whole's CRC, its number and count; *payload points into in, *plen its length. */
+int frame_piece_get(const uint8_t *in, size_t len, uint32_t *whole_crc, uint8_t *piece,
+		    uint8_t *pieces, const uint8_t **payload, size_t *plen);
+
 #endif

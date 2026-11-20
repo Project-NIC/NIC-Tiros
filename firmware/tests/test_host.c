@@ -11,6 +11,10 @@
 #include "../common/frames.h"
 #include "../common/hamilton.h"
 #include "../common/recfile.h"
+#include "../common/seal.h"
+
+int ccm_openssl(const uint8_t key[16], const uint8_t nonce[NONCE_LEN], const uint8_t *aad, size_t aad_len,
+		const uint8_t *in, uint8_t *out, size_t len, uint8_t tag[4], int encrypt);
 #include "../common/le.h"
 #include "../common/settings.h"
 
@@ -133,6 +137,58 @@ static void files_on(const struct settings *s, enum ham_state *prev, enum ham_st
 	enum recfile_act a = recfile_change(*hz, recfile_rate(s, now), hz);
 	if (a == RF_BEGIN || a == RF_NEXT)
 		(*files)++;
+}
+
+/* The frames read back, as Ham reads them; the signature and the count (seal.h). */
+static void test_decode_seal(void)
+{
+	const uint8_t key[16] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }, bad[16] = { 0 };
+	uint8_t f[64], g[64];
+	struct head h = { FRAME_BEACON, 4711, 1, ADDR_ALL, 0x05 };
+	struct beacon b = { { 491951234, 166078901, 312, 3, 11 }, 4, 0, PHASE_LANDED, 4020, -71 }, b2;
+	struct live l = { 1234, 101325 * 64, 950, -20, PHASE_CLIMB, 0x01, 3900, 1,
+			  { 491951234, 166078901, 400, 3, 9 }, 1200 }, l2;
+	struct answer a = { CMD_ARM, RESULT_DONE, -60, 0x9A41C2E0u }, a2;
+	uint32_t whole;
+	size_t n;
+
+	n = frame_beacon_put(f, &h, &b);
+	CHECK(frame_beacon_get(f, n, &b2) == 0 && b2.fix.lat_e7 == b.fix.lat_e7 && b2.fix.kind == 3 &&
+	      b2.fix.satellites == 11 && b2.cell_mv == 4020 && b2.rssi_dbm == -71 && b2.phase == PHASE_LANDED);
+	CHECK(frame_live_get(f, n, &l2) == -1);                                   /* not a live frame */
+	/* signed and hidden; read only with the key and the whole count */
+	CHECK(seal_frame(ccm_openssl, key, f, n, 0x305, 1) == 0);
+	memcpy(g, f, n);
+	CHECK(f[6] != (uint8_t)(b.fix.lat_e7 & 0xFF) || f[7] != (uint8_t)(b.fix.lat_e7 >> 8)); /* hidden */
+	CHECK(seal_open(ccm_openssl, bad, g, n, 0x305, 1) == -1);                 /* another set's key */
+	memcpy(g, f, n);
+	CHECK(seal_open(ccm_openssl, key, g, n, 0x205, 1) == -1);                 /* the wrong count */
+	memcpy(g, f, n);
+	g[3] ^= 1;
+	CHECK(seal_open(ccm_openssl, key, g, n, 0x305, 1) == -1);                 /* the head forged */
+	CHECK(seal_open(ccm_openssl, key, f, n, 0x305, 1) == 0 && frame_beacon_get(f, n, &b2) == 0 &&
+	      b2.fix.lon_e7 == b.fix.lon_e7 && b2.accuracy_m == 4);
+	/* an answer, signed in the open */
+	h.type = FRAME_ANSWER; h.target = ADDR_HAM_MASTER; h.count = 0x07;
+	n = frame_answer_put(f, &h, &a);
+	CHECK(seal_frame(ccm_openssl, key, f, n, 0x07, 0) == 0 && f[6] == CMD_ARM);
+	CHECK(seal_open(ccm_openssl, key, f, n, 0x07, 0) == 0 && frame_answer_get(f, n, &a2) == 0 &&
+	      a2.table_crc == 0x9A41C2E0u && a2.rssi_dbm == -60);
+	f[7] = RESULT_REFUSED;
+	CHECK(seal_open(ccm_openssl, key, f, n, 0x07, 0) == -1);                  /* the result forged */
+	/* the live view, open, with and without its fix */
+	h.type = FRAME_LIVE; h.target = ADDR_ALL;
+	n = frame_live_put(f, &h, &l);
+	CHECK(n == LIVE_GNSS_LEN && frame_live_get(f, n, &l2) == 0 && l2.has_gnss && l2.fix_step == 1200 &&
+	      l2.pressure_64pa == 101325 * 64 && l2.roll_dps == -20 && l2.cell_mv == 3900);
+	l.has_gnss = 0;
+	n = frame_live_put(f, &h, &l);
+	CHECK(n == LIVE_LEN && frame_live_get(f, n, &l2) == 0 && !l2.has_gnss);
+	/* the count: the next above the last; a replay refused */
+	CHECK(seal_count(0x1FE, 1, 0xFF, &whole) == 0 && whole == 0x1FF);
+	CHECK(seal_count(0x1FF, 1, 0x00, &whole) == 0 && whole == 0x200);
+	CHECK(seal_count(0x200, 1, 0x00, &whole) == 0 && whole == 0x300);       /* not the same: the next round */
+	CHECK(seal_count(0, 0, 0x2A, &whole) == 0 && whole == 0x2A);
 }
 
 static void test_recfile(void)
@@ -366,6 +422,7 @@ int main(void)
 	test_crc();
 	test_frames();
 	test_settings();
+	test_decode_seal();
 	test_recfile();
 	test_rocket();
 	test_plane();

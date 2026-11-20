@@ -8,7 +8,7 @@ host** before any board exists; the nRF Connect SDK's project on Zephyr (target
 
 | file | what | from |
 |---|---|---|
-| `common/frames.[ch]` | every radio frame encoded byte for byte, its size asserted by the tests; the tag's 4 B kept for CRACEN's AES-CCM | `RADIO.md` |
+| `common/frames.[ch]` | every radio frame encoded byte for byte, and read back as Ham reads them, its size asserted by the tests | `RADIO.md` |
 | `common/settings.[ch]` | the 42 settings, their defaults and ranges; a table taken whole or not at all; the text form and its CRC-32 | `SETTINGS.md` |
 | `common/hamilton.[ch]` | the machine of states: the launch back-dated to the departure, confirmed by the height; the top; the landing by a spike and stillness; every condition 0-off; OFF, idle, the session's limit | `HAMILTON.md` |
 | `common/bootlog.[ch]` | the boot log's 64 B record, its CRC, the ring's slot | `BOOTLOG.md` |
@@ -16,12 +16,13 @@ host** before any board exists; the nRF Connect SDK's project on Zephyr (target
 | `common/lastfix.[ch]` | the beacon's last good fix: a worse one never replaces it; its age and accuracy | `RADIO.md`, 1 |
 | `common/pieces.[ch]` | a table received in pieces, out of order, taken when whole and its CRC-32 agrees | `RADIO.md`, 5 |
 | `common/recfile.[ch]` | a file per phase: a rate other than the running one begins the next file, lettered `S00007T01B.MUFT`, … | `RECORD.md`, *A file per phase* |
+| `common/seal.[ch]` | the signature: the nonce, a frame signed or hidden and opened, the whole count from its low byte; the AES-CCM the platform's, given as one function | `RADIO.md`, *The key* |
 | `common/crc32.[ch]`, `common/le.h` | CRC-32 (zlib's), little-endian | — |
 | `common/record.[ch]` | **the record**: Tiros's profile in MUF — its 6 streams, its 22 groups — written through NIC-SDK's writer (`muf.c`, from a checkout of `Project-NIC/NIC-SDK` 0.2) | `RECORD.md` |
 | `tests/fly.c`, `tests/test_record.py` | a rocket flown through the machine and written as a record, read back by NIC-SDK's reader: the head `MUFT`, the 22 groups, 80 s at 1 kHz whole, the pressure on the pad, the events back-dated (armed 0.010 s, launched 3.000 s, the top, the landing), the GNSS's 800 fixes and its top, the time's ties, the end | |
-| `tests/test_host.c` | 119 checks: the frames' bytes, the settings, a file per phase, a rocket (two files), a plane (one), a bump on the pad, everything off, the idle off, the airtimes, an hour of beacons every 5 s, the last fix, a table in pieces, the boot log | |
+| `tests/test_host.c`, `tests/ccm_openssl.c` | 136 checks (AES-CCM through OpenSSL on the host): the frames' bytes and read back, a beacon hidden and opened, a forged head or result refused, the count, the settings, a file per phase, a rocket (two files), a plane (one), a bump on the pad, everything off, the idle off, the airtimes, an hour of beacons every 5 s, the last fix, a table in pieces, the boot log | |
 
-Run: `make test`; the record: `python3 tests/test_record.py [SDK]` — `SDK` a checkout of
+Run: `make test` (OpenSSL's `libcrypto` for the host's AES-CCM); the record: `python3 tests/test_record.py [SDK]` — `SDK` a checkout of
 [NIC-SDK](https://github.com/Project-NIC/NIC-SDK), by default `NIC-SDK` beside `NIC-Tiros`.
 
 ## Found on the way

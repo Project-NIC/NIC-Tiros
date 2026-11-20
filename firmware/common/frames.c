@@ -118,3 +118,81 @@ size_t frame_piece_put(uint8_t *out, const struct head *h, uint32_t whole_crc, u
 	memset(out + PIECE_HEAD_LEN + len, 0, TAG_LEN);
 	return PIECE_HEAD_LEN + len + TAG_LEN;
 }
+
+static void fix_get(const uint8_t *p, struct fix *f)
+{
+	f->lat_e7 = get_i32(p);
+	f->lon_e7 = get_i32(p + 4);
+	f->height_m = get_i16(p + 8);
+	f->kind = p[10] >> 4;
+	f->satellites = p[10] & 0x0F;
+}
+
+int frame_beacon_get(const uint8_t *in, size_t len, struct beacon *b)
+{
+	if (len != BEACON_LEN || in[0] != FRAME_BEACON) {
+		return -1;
+	}
+	fix_get(in + 6, &b->fix);
+	b->accuracy_m = in[17];
+	b->age_min = in[18];
+	b->phase = in[19];
+	b->cell_mv = (uint16_t)(in[20] * 20u);
+	b->rssi_dbm = (int8_t)in[21];
+	return 0;
+}
+
+int frame_live_get(const uint8_t *in, size_t len, struct live *l)
+{
+	if ((len != LIVE_LEN && len != LIVE_GNSS_LEN) || in[0] != FRAME_LIVE) {
+		return -1;
+	}
+	l->step = get_u32(in + 6);
+	l->pressure_64pa = get_i32(in + 10);
+	l->accel_cg = get_i16(in + 14);
+	l->roll_dps = get_i16(in + 16);
+	l->phase = in[18];
+	l->events = in[19];
+	l->cell_mv = (uint16_t)(in[20] * 20u);
+	l->has_gnss = (in[21] & 0x01) != 0;
+	if (l->has_gnss != (len == LIVE_GNSS_LEN)) {
+		return -1;
+	}
+	if (l->has_gnss) {
+		fix_get(in + 22, &l->fix);
+		l->fix_step = get_u32(in + 33);
+	}
+	return 0;
+}
+
+int frame_answer_get(const uint8_t *in, size_t len, struct answer *a)
+{
+	if (len != ANSWER_LEN || in[0] != FRAME_ANSWER) {
+		return -1;
+	}
+	a->command = in[6];
+	a->result = in[7];
+	a->rssi_dbm = (int8_t)in[8];
+	a->table_crc = get_u32(in + 9);
+	return 0;
+}
+
+int frame_piece_get(const uint8_t *in, size_t len, uint32_t *whole_crc, uint8_t *piece,
+		    uint8_t *pieces, const uint8_t **payload, size_t *plen)
+{
+	size_t max;
+
+	if (len < PIECE_HEAD_LEN + TAG_LEN || (in[0] != FRAME_TABLE && in[0] != FRAME_LOG)) {
+		return -1;
+	}
+	max = in[0] == FRAME_TABLE ? TABLE_PIECE_TEXT_MAX : LOG_PIECE_RECORDS_MAX * LOG_RECORD_LEN;
+	if (len - PIECE_HEAD_LEN - TAG_LEN > max) {
+		return -1;
+	}
+	*whole_crc = get_u32(in + 6);
+	*piece = in[10];
+	*pieces = in[11];
+	*payload = in + PIECE_HEAD_LEN;
+	*plen = len - PIECE_HEAD_LEN - TAG_LEN;
+	return 0;
+}
