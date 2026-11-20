@@ -153,10 +153,13 @@ flight.
 - **All plastic, nothing magnetic:** the body and the coupling nut plastic, the pins **brass and
   gold-plated** (or otherwise finished) — **no iron, no steel**, the magnetometer being on the same
   board. The part is to be found against that; a stainless body is refused.
-- **The speed:** USB full speed goes through any connector — Baker's 128 MB in some 2 min. Able's
-  card wants high speed (480 Mbit/s), which the D-coding's shielded pairs and a short cable carry;
-  tried on the bench. At full speed alone Able's 8 GB would take some 2½ hours.
+- **The speed:** the 480 Mbit/s of USB high speed is not what limits it — **the card is**, read in
+  SPI mode at 32 MHz (`PINS.md`), some 3 MB/s at best: Able's 8 GB in some 45 min, Baker's 128 MB in
+  under a minute. USB at that rate is no trial for a connector: USB cut and joined through UTP
+  pairs, soldered and taped, has run at full rate over a metre (the owner's own try). On full speed
+  alone, if high speed should fail, some 1 MB/s — the 8 GB in some 2¼ hours.
+- **The cable: half a metre at most**, the pairs kept twisted to the contact.
 - **The room:** Baker's 20 mm body (17–18 mm inside) takes the socket **through an end**, not the
   side; Able's box anywhere.
-- **The cable:** M8 D-coded female to USB-C, the project's own — bought as an M8 cordset with open
+- **The cable's ends:** M8 D-coded female to USB-C, the project's own — bought as an M8 cordset with open
   ends and a USB-C plug soldered on, or bought whole where offered.
