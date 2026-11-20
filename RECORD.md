@@ -4,6 +4,19 @@ Tiros writes **MUF**, Project-NIC's format ([`MUF.md`](https://github.com/Projec
 its streams, its groups, its fields. The mark and the extension **`MUFT`**; a file
 `S00007T01.MUFT`, the session, then the unit's number.
 
+## A file per phase
+
+**A rate per phase is a file per phase** — a MUF stream has one rate, and a layout changed is a new
+file with its own head (`MUF.md`, §10). At a change of phase (ready, climb, descent, landed —
+[`HAMILTON.md`](HAMILTON.md)) whose rate (`REC_READY`, `REC_CLIMB`, `REC_DESC`, `REC_LANDED`,
+[`SETTINGS.md`](SETTINGS.md)) differs from the one running, the file is ended and the next begun;
+an equal rate keeps the file. So **a rocket** with the default table writes two — the climb at
+1000 Hz, the descent at 100 Hz — and **a plane** (`APOGEE_M 0`, no top looked for) **one, from the
+launch to the end**. The same session, the files lettered in order: `S00007T01.MUFT`, then
+`S00007T01B.MUFT`, `C`, … Each file's step 0 is its own start, laid in the GNSS's time as every
+file's is, so the files join without a gap; the event that changed the phase (3, the apogee) is
+the last of the one file and the start of the next.
+
 ## The streams
 
 | kind | stream | rate | steps a block | a step | a block every |

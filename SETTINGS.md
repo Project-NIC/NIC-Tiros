@@ -16,14 +16,14 @@ A setting out of its range is refused and the old value kept.
 ## The flight's phases and their rates
 
 A flight goes **ready → climb → descent → landed**; each phase may record at its own rate, or not
-at all. In the record each rate is a stream of its own (MUF: every stream its own rate), so a
-change of rate mid-flight needs no new file.
+at all. A MUF stream has one rate, so a phase whose rate differs begins a new file, an equal rate
+keeping the one (`RECORD.md`, *A file per phase*): a rocket two files, a plane (`APOGEE_M 0`) one.
 
 | name | default | range | what |
 |---|---|---|---|
 | `REC_READY` | 0 | 0, 1–4000 Hz | recording while ready (0: only the ring below) |
 | `REC_CLIMB` | 1000 | 0, 1–4000 Hz | from the launch to the apogee (the whole flight if `APOGEE_M` is 0) |
-| `REC_DESC` | 100 | 0, 1–4000 Hz | from the apogee to the landing |
+| `REC_DESC` | 100 | 0, 1–4000 Hz | from the apogee to the landing; a rate other than the climb's begins a new file (`RECORD.md`, *A file per phase*) |
 | `REC_LANDED` | 0 | 0, 1–100 Hz | after the landing (0: stop, the file closed) |
 | `PRE_S` | 3 | 0–10 s | the ring kept before the launch, written at it |
 | `SLOW_HZ` | 10 | 1–100 Hz | the air's stream (humidity, temperatures) |

@@ -159,7 +159,7 @@ world.
 | bytes | the field | |
 |---|---|---|
 | 0–5 | the head | type 4 |
-| 6 | the command it answers u8 | 9 for a table received |
+| 6 | the command it answers u8 | **128** for a table received (the commands keep 1–127) |
 | 7 | the result u8 | 0 done ("measuring" after START), 1 refused, 2 unknown, 3 out of range, 4 pieces missing, 5 too far |
 | 8 | the signal it heard the Ham at i8, dBm | for finding both ways |
 | 9–12 | the CRC-32 of the table it holds now | so the Ham sees at once whether its table is the unit's |
