@@ -15,8 +15,7 @@ enum frame_type {
 enum command {
 	CMD_ARM = 1, CMD_DISARM = 2, CMD_START = 3, CMD_STOP = 4, CMD_POWER = 5, CMD_BEEP = 6,
 	CMD_PING = 7, CMD_TABLE_GET = 8, CMD_LOG_GET = 9, CMD_OFF = 10,
-	/* In an answer to a table received: 128, the commands keeping 1–127 (RADIO.md, 4; the owner,
-	 * 20 Nov 2026 — 9 had clashed with LOG_GET). */
+	/* In an answer to a table received: 128, the commands keeping 1–127 (RADIO.md, 4). */
 	ANSWER_TABLE_RECEIVED = 128,
 };
 

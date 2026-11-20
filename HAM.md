@@ -77,9 +77,7 @@ antenna — or the arrow drawn on its box — pointing ahead, and one walks.
 - **The arrow,** a plain blunt one, pointing up the screen where Ham's antenna points; **its length
   and colour the signal's strength**, with *near — far* beside it, the number and a tone whose
   pitch rises with it, as the fox hunters' receivers do. One turns until the arrow is longest, and
-  walks. Or **the arrow on the map**, marking the unit's last fix. The two to choose between; the
-  arrow's shape a setting of the page (a red star with its top point drawn long, should anyone
-  insist).
+  walks. Or **the arrow on the map**, marking the unit's last fix. The two to choose between.
 - Near the unit Ham lowers its power step by step (POWER); BEEP for the last metres; PING for a
   quick answer.
 
