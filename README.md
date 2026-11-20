@@ -11,11 +11,11 @@ fraction of what such trackers are sold for. It steers nothing.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 [![License: CERN-OHL-P v2](https://img.shields.io/badge/License-CERN--OHL--P%20v2-red.svg)](https://ohwr.org/cern_ohl_p_v2.txt)
-![Version: 0.6 — concept](https://img.shields.io/badge/version-0.6%20concept-blue.svg)
+![Version: 0.7 — concept](https://img.shields.io/badge/version-0.7%20concept-blue.svg)
 
 > ⚠️ **A concept.** The purpose, the requirements, the architecture, the sums and the parts are
 > settled; of the detail, the radio's frames, the settings, the boot log, the firmware's states and
-> Ham's page are agreed; the antennas and the contact are still being weighed; no board is drawn
+> Ham's page are agreed, the antennas chosen; the contact is still being weighed; no board is drawn
 > and nothing is built. The project grows in steps — purpose, requirements, architecture,
 > principle, parts, detail — each begun when the one before it is settled.
 

@@ -22,7 +22,7 @@ sheet is not read. No pins here ([`PINS.md`](PINS.md)).
 | position antenna, Baker | **Maxtena M1516HCT-P-UFL** — fallback **Johanson 1575AT43A0040001E** | helix 33 × Ø 13.2 mm on a U.FL coax, the coax sealed where it leaves the box / chip 7 × 2 mm | circular, no ground plane, 3 g | read — whether it can be bought off a shelf, **to find out** |
 | position antenna, Able | **Maxtena M1516HCT-P-SMA** on a bulkhead SMA through the box | Ø 18.5 mm, IP67 with its O-ring | the same, screwed on outside | read |
 | radio | **a SX1262 module with an antenna socket** — proposed **Seeed Wio-SX1262** with IPEX, 11.6 × 11 × 2.95 mm, 862–930 MHz, 22 dBm; else M5Stack's Stamp LoRa-1262 I, 14 × 10 × 2.4 mm, its socket IPEX-4 (MHF4) | LGA/stamp | LoRa 868 MHz; the chip's figures from Semtech's sheet: −124 / −137 dBm, 45 mA sending, 5.3 mA listening, 0.6 µA asleep | read — −40 to +85 °C; VCC 1.8–3.6 V, so straight from the LiFePO4 cell or a rail; 125 mA at 22 dBm; asleep 1.62 µA |
-| radio antenna | **open**, by length (below): in Baker's body a wire or a short rod; an 868 MHz antenna on Able's box | — | the link's margins in `calc/out/numbers.md` | — |
+| radio antenna | **chosen** (below): Baker in a 20 mm body ETEILY ET-868HCA-5L10C-U, in 30–40 mm or the nose Linx ANT-868-WRT-UFL; Able Linx ANT-868-WRT-UFL inside its box; all on U.FL, nothing soldered | — | the link's margins in `calc/out/numbers.md` | — |
 | cell, Able | **LTOPOW LFP103042, LiFePO4** | pouch 10 × 30 × 42 mm, 14 g | 720 mAh at 3.2 V; LiFePO4 for the shocks and its safety; charge 0–45 °C, **discharge −10 to 80 °C** — the cold limit is the cell's, not the electronics' | read (LTOPOW's product page) |
 | cell, Baker | **LiFePO4, a cylindrical 10440** — (Ø 10 × 44 mm, AAA-sized, some 200 mAh as sellers give it), a steel can that bears the shocks better than a pouch; a narrow pouch if one is offered (LTOPOW's list has none under 25 mm wide) | — | Baker's energy (`calc/`); its steel can a soft-iron mass, kept from the magnetometer and calibrated | **to choose**, its sheet to read |
 | clocks | a 32 MHz crystal (the nRF54LM20 needs it), a 32.768 kHz one | 2016, 2012 | the radio's clock; the time between GNSS fixes | read — below |
@@ -75,7 +75,21 @@ it keeps at its working voltage (Strelka's rules).
 | the processor's own DC/DC coil | **4.7 µH** as the reference asks (its L1: 0603, 120 mA, 0.65 Ω) — **in a larger case, lower DC resistance** (the least voltage lost), e.g. 0805–1008 or the MLP2016 class | the same (L1) | in EasyEDA |
 | the processor's decoupling | as the reference BOM: 10 µF and 4.7 µF at the supply, 100 nF at each VDD, 2.2 µF at DECRF | the same | basic parts where they are |
 
-## The 868 MHz antenna — a recommendation by length
+## The 868 MHz antenna — chosen
+
+All on the Wio-SX1262's **U.FL** socket, a bought antenna on its lead, nothing soldered.
+
+| where | the antenna | size, lead | figures | why |
+|---|---|---|---|---|
+| **Baker in a 20 mm body** (inside some 17–18 mm) | **ETEILY ET-868HCA-5L10C-U**, a coil | 32 mm, Ø ~5; 10 cm of 1.13 mm coax, U.FL | 864–868 MHz; "3 dBi" the seller's — a coil is some −3 to −6 dB in truth | the only one that fits and comes on U.FL |
+| **Baker in a 30–40 mm body, or in the nose** | **Linx ANT-868-WRT-UFL**, a dipole puck | Ø 19 × 10 mm; 216 mm, U.FL; its counterpoise in the lead, no ground plane | VSWR ≤ 1.4, peak 3.8 dBi, 48 % (its sheet) | the one professional piece with measured figures |
+| **Able, in its sealed box** | **Linx ANT-868-WRT-UFL** under the lid | as above | as above | nothing through the wall; **should the reach not do**, Ebyte TX868-JZ-5 outside on an SMA bulkhead (2.0 dBi, SWR ≤ 1.5, its sheet), inside a U.FL–SMA *female* lead |
+| **Ham** | the antenna in Seeed's kit (2 dBi, U.FL) | — | — | for finding, a rod on a U.FL–SMA lead, turned by hand |
+
+The pattern in the rocket is not to be decided on paper: the first flight's log measures it — the
+signal at Ham against the unit's attitude from its IMU.
+
+## The 868 MHz antenna — the others weighed, by length
 
 The builder chooses by the room in the rocket or the box; each step shorter costs some dB, and the
 link has some 40–50 dB to spare (`calc/out/numbers.md`). Figures from makers' and distributors'
@@ -112,7 +126,7 @@ RadioCore RCC6); any board with an SX1262 at 868 MHz, an antenna socket and a ce
 
 1. **Baker's 10440:** sellers give some 200 mAh (Keeppower, Orange; a Russian spec 280 mAh at 0.2 C —
    promelec.ru), none a temperature range; a maker's own sheet to be had.
-2. The 868 MHz antennas: the table above; their sheets to read before the guide names them.
+2. The 868 MHz antennas: chosen (above); ETEILY's own sheet still to be had — its figures are the seller's.
 3. The small parts — the microSD socket, the SMA bulkheads, the U.FL sockets — by JLCPCB's codes.
    The datasheet's reference circuit is for the CSP98; the QFN52's own reference layout (Nordic's
    product page) is wanted when the board is drawn — for its pins and the unused
