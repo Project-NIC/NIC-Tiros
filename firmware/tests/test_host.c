@@ -11,6 +11,7 @@
 #include "../common/frames.h"
 #include "../common/hamilton.h"
 #include "../common/recfile.h"
+#include "../common/listen.h"
 #include "../common/seal.h"
 
 int ccm_openssl(const uint8_t key[16], const uint8_t nonce[NONCE_LEN], const uint8_t *aad, size_t aad_len,
@@ -189,6 +190,29 @@ static void test_decode_seal(void)
 	CHECK(seal_count(0x1FF, 1, 0x00, &whole) == 0 && whole == 0x200);
 	CHECK(seal_count(0x200, 1, 0x00, &whole) == 0 && whole == 0x300);       /* not the same: the next round */
 	CHECK(seal_count(0, 0, 0x2A, &whole) == 0 && whole == 0x2A);
+}
+
+/* When a unit listens (listen.h): by phase, by its table. */
+static void test_listen(void)
+{
+	struct settings s;
+	struct radio_use u;
+	int bad;
+
+	settings_defaults(&s);
+	u = listen_when(&s, PHASE_ON);
+	CHECK(u.continuous && u.freq_hz == CHANNEL_B_HZ && u.sf == 7 && u.bw_khz == 250);
+	u = listen_when(&s, PHASE_CLIMB);
+	CHECK(!u.continuous && u.after_ms == 100 && u.freq_hz == CHANNEL_B_HZ && u.sf == 7);
+	u = listen_when(&s, PHASE_LANDED);
+	CHECK(!u.continuous && u.after_ms == 100 && u.freq_hz == CHANNEL_A_HZ && u.sf == 12 && u.bw_khz == 125);
+	CHECK(!listen_held(PHASE_READY) && listen_held(PHASE_DESCENT) && listen_held(PHASE_LANDED));
+	const char *far = "LIVE_CHANNEL A\nLIVE_MODE SF9/125\nBEACON_MODE SF10/125\nLISTEN_MS 300\n";
+	CHECK(settings_take(&s, far, strlen(far), &bad) == TABLE_TAKEN);
+	u = listen_when(&s, PHASE_DESCENT);
+	CHECK(u.freq_hz == CHANNEL_A_HZ && u.sf == 9 && u.bw_khz == 125 && u.after_ms == 300);
+	u = listen_when(&s, PHASE_LANDED);
+	CHECK(u.sf == 10 && u.after_ms == 300);
 }
 
 static void test_recfile(void)
@@ -423,6 +447,7 @@ int main(void)
 	test_frames();
 	test_settings();
 	test_decode_seal();
+	test_listen();
 	test_recfile();
 	test_rocket();
 	test_plane();

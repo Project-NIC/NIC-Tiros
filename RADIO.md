@@ -43,6 +43,23 @@ live at a time at that rate**; rockets are flown one after another anyway.
 groups. A unit's name (`NAME`) is in its table: Ham knows it from the pairing, the frames carry
 the number alone.
 
+## When a unit listens
+
+A unit listens only when a Ham can expect it to — as LoRaWAN's class A does once it flies:
+
+| the phase | it listens | where |
+|---|---|---|
+| on, ready | **all the time** | `LINK_CHANNEL` in `LIVE_MODE` — B, SF7/250 by default |
+| climb, descent | `LISTEN_MS` after each live frame it sends | that frame's: `LIVE_CHANNEL`, `LIVE_MODE` |
+| landed | `LISTEN_MS` after each beacon | that beacon's: `BEACON_CHANNEL`, `BEACON_MODE` — A, SF12/125 by default |
+
+So **a Ham sends a command to a unit on the pad at once; to one flying or landed it holds the
+command and sends it the moment one of that unit's frames is heard**, on the same channel and mode,
+within its `LISTEN_MS`. A landed unit's radio sleeps between beacons — its cell lasts the days of a
+search. **Ham listens on B in the live view's mode while any unit is on the pad or flying, and on
+A in the beacon's mode once every unit heard has landed.** Written once for both sides
+(`firmware/common/listen.c`).
+
 ## The key — as NIC-Strelka, as LoRaWAN
 
 - **The set's key, AES-128, drawn at random by Ham** with the set's number, and **given on

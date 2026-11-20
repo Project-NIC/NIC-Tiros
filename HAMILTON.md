@@ -17,11 +17,11 @@ phase in every radio frame (`RADIO.md`).
 | # | the state | what runs | what it records |
 |---|---|---|---|
 | — | **off** | nothing: the nPM1300's ship mode, as NIC-Strelka's — 370 nA (nPM1300 PS v1.1); no radio, no listening. Woken by a magnet held to the case (the Hall switch on its SHPHLD pin) or by the cable's 5 V | nothing |
-| 0 | **on** | awake, the sensors asleep; the radio listening on channel B for ARM, TABLE_GET, LOG_GET, OFF | nothing |
-| 1 | **ready** | the sensors, the GNSS; the live view if `LIVE_READY_HZ`; listening | the ring: the last `PRE_S` seconds in RAM, or at `REC_READY` |
-| 2 | **climb** — the flight up to its top, or the whole flight if no top is looked for | everything; the live view | at `REC_CLIMB`, the ring written first |
-| 3 | **descent** — after the top | everything; the live view | at `REC_DESC` |
-| 4 | **landed** | the GNSS until a fix within `BEACON_ACC_M`, then off; the beacon; the buzzer; listening | at `REC_LANDED`, 0: the file closed |
+| 0 | **on** | awake, the sensors asleep; the radio listening all the time on channel B for ARM, TABLE_GET, LOG_GET, OFF (`RADIO.md`, *When a unit listens*) | nothing |
+| 1 | **ready** | the sensors, the GNSS; the live view if `LIVE_READY_HZ`; listening all the time | the ring: the last `PRE_S` seconds in RAM, or at `REC_READY` |
+| 2 | **climb** — the flight up to its top, or the whole flight if no top is looked for | everything; the live view, listening `LISTEN_MS` after each frame | at `REC_CLIMB`, the ring written first |
+| 3 | **descent** — after the top | everything; the live view, listening `LISTEN_MS` after each frame | at `REC_DESC` |
+| 4 | **landed** | the GNSS until a fix within `BEACON_ACC_M`, then off; the beacon, listening `LISTEN_MS` after each, the radio asleep between; the buzzer | at `REC_LANDED`, 0: the file closed |
 
 ## The changes
 
