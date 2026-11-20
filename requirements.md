@@ -54,7 +54,7 @@ humidity ~one; position ~one to ten.
   itself, or started over the radio.
 - **Set up over the USB cable, or over the same radio on site** — a free channel at low power.
   Baker and Able carry no Wi-Fi and no Bluetooth; Wi-Fi is Ham's alone, for the phone out of
-  doors.
+  doors — Ham joining the phone's network, given it over the cable or Bluetooth.
 - **Ham** receives Baker and Able and shows them: at home on a computer, out of doors on a phone
   (in a browser, no app); fed from USB or a cell; a socket for an outside antenna.
 

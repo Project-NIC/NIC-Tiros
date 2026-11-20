@@ -26,8 +26,9 @@ browser shows Ham's page (`requirements.md`).
 **Ham's page is the application:** plain HTML and JavaScript over HTTP,
 the same on Linux, Windows, macOS, Android and an iPhone, nothing installed, its files free to
 download and open. It leans only on what every browser has — Apple's included: a page, a form, a
-file chosen and a file saved. **Not used,** since Safari has none of them: Web Bluetooth, WebUSB,
-Web Serial. The unit on its cable is a disk, which every system opens, a phone's too.
+file chosen and a file saved. **Not leaned on,** since Safari has none of them: Web Bluetooth, WebUSB,
+Web Serial — Web Bluetooth only gives Ham its Wi-Fi where a browser has it, the cable doing the
+same everywhere. The unit on its cable is a disk, which every system opens, a phone's too.
 
 **The same page opened from a file,** with no Ham at all: it reads a record or Ham's log from the
 disk and turns it into CSV, GPX or ULog for the free tools that already exist — the page manages
@@ -76,10 +77,29 @@ to be copied into any map application (Mapy.cz, …) to navigate by. The orthoph
 The height and the vertical speed are Ham's, from the pressures (`RADIO.md`, 2); the unit sends
 the barometer's own number.
 
+## How a phone or a computer reaches Ham — as NIC-Strelka's Povodok
+
+**Ham joins the user's own network** — the phone's hotspot out of doors, the home Wi-Fi at home —
+so the phone keeps its internet and its map; a phone joining a device's own network loses both,
+and the systems leave it again. The network's name and password are given to Ham once, by
+**either of two ways**:
+
+- **over the USB cable** — Ham a USB network adapter (CDC-NCM) beside its disk, its page opened over
+  the cable; the way that holds on every system with a USB network — Povodok's tested on an iPhone
+  with USB-C, Android, Windows, macOS, Linux;
+- **over Bluetooth LE** — from a browser that has Web Bluetooth (Chrome and Edge on Android,
+  Windows, macOS). Web Bluetooth wants a secure page: the setting-up page served over HTTPS from the
+  project's own pages, or opened from a file. Safari has none — an iPhone takes the cable.
+
+Then Ham is found on the network as `ham.local` (mDNS), its address told over Bluetooth and on the
+cable as well. Ham's ESP32-S3 hears **2.4 GHz only**: a phone's hotspot set to 2.4 GHz (an
+iPhone's *Maximise Compatibility*).
+
 ## The page's lock — as NIC-Strelka's Povodok
 
-Ham's own Wi-Fi network with its own password (WPA2), and the page's **password, at least twelve
-characters, checked by a challenge and its answer**, never sent; Ham keeps its SHA-256.
+The user's network with its own password (WPA2), and the page's **password, at least twelve
+characters, checked by a challenge and its answer**, never sent — over the network and over the
+cable alike; Ham keeps its SHA-256.
 
 ## Open
 

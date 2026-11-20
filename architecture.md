@@ -41,8 +41,9 @@ which the position's pulse each second ties to true time. No common sample clock
 | **processor with Wi-Fi** | runs the radio, keeps what arrives, serves a web page |
 | **radio** | LoRa to Baker and Able, a socket for an outside antenna |
 | **power** | USB, and a cell to be carried out |
-| **USB** | to a computer: what arrived, setting up |
-| **Wi-Fi** | its own access point; the phone's browser shows the page, no app |
+| **USB** | to a computer or a phone: a network adapter and a disk — what arrived, setting up, the Wi-Fi given |
+| **Wi-Fi** | joins the user's network (the phone's hotspot); the browser shows the page, no app |
+| **Bluetooth LE** | the Wi-Fi's name and password given from a phone or a computer |
 
 ## The links
 
@@ -51,7 +52,8 @@ which the position's pulse each second ties to true time. No common sample clock
 | **LoRa, 868 MHz** | Baker / Able ↔ Ham | two channels: the live view, commands and setting up on the low-power one; the position after landing on the 500 mW one, slow and robust — [`RADIO.md`](RADIO.md). The unit listens a moment after each packet it sends. |
 | **USB** | a unit ↔ a computer | the log as a disk; setting up; charging |
 | **USB** | Ham ↔ a computer | what arrived; setting up |
-| **Wi-Fi** | Ham ↔ a phone | the page: the live view, the position, the commands |
+| **Wi-Fi** | Ham ↔ a phone | over the phone's own network, the page: the live view, the position, the commands |
+| **Bluetooth LE** | Ham ↔ a phone | the Wi-Fi given once (or the same over USB) |
 
 ## The states of a unit
 
