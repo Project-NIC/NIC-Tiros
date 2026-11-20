@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ham — the page (mockup)</title>
+<!-- NIC-Tiros — Ham's page, a mockup with made-up data (HAM.md, "The page"). Plain HTML and
+     JavaScript, nothing fetched, opened from a file or served by Ham alike. -->
+<style>
+:root { --bg:#f6f7f9; --card:#fff; --ink:#1b1e23; --mute:#6b7280; --line:#dde1e6; --acc:#1f6feb;
+  --ok:#1a7f37; --warn:#b26b00; --bad:#c62828; --c1:#1f6feb; --c2:#d9480f; --c3:#2b8a3e; --c4:#7048e8; }
+@media (prefers-color-scheme: dark) { :root { --bg:#111418; --card:#1b1f25; --ink:#e6e8eb; --mute:#9aa3ad;
+  --line:#2c323a; --acc:#4c8dff; --c1:#4c8dff; --c2:#ff8a50; --c3:#51cf66; --c4:#9775fa; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.4 system-ui, sans-serif; padding-bottom:64px; }
+header { position:sticky; top:0; z-index:2; background:var(--card); border-bottom:1px solid var(--line);
+  display:flex; gap:12px; align-items:center; padding:8px 16px; font-size:14px; }
+header b { font-size:16px; } header .r { margin-left:auto; color:var(--mute); }
+nav { position:fixed; bottom:0; left:0; right:0; display:flex; background:var(--card); border-top:1px solid var(--line); z-index:2; }
+nav button { flex:1; border:0; background:none; color:var(--mute); padding:10px 0 12px; font:inherit; font-size:13px; }
+nav button.on { color:var(--acc); font-weight:600; }
+main { max-width:760px; margin:0 auto; padding:12px 16px; }
+section { display:none; } section.on { display:block; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:12px; }
+.row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.mute { color:var(--mute); font-size:13px; }
+.badge { border-radius:99px; padding:2px 10px; font-size:13px; font-weight:600; color:#fff; }
+.ph0{background:#6b7280}.ph1{background:var(--warn)}.ph2{background:var(--bad)}.ph3{background:var(--c4)}.ph4{background:var(--ok)}
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; margin:8px 0; }
+.grid div { font-size:13px; color:var(--mute); } .grid b { display:block; font-size:18px; color:var(--ink); }
+button.b { border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:8px; padding:10px 14px; font:inherit; min-width:72px; }
+button.b.p { background:var(--acc); border-color:var(--acc); color:#fff; }
+button.b.hold { border-color:var(--bad); color:var(--bad); }
+.big, .grid b.big { font-size:44px; font-weight:700; line-height:1; } .unit { font-size:16px; color:var(--mute); }
+canvas { width:100%; display:block; background:var(--card); border:1px solid var(--line); border-radius:8px; touch-action:none; }
+.ev { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding:6px 0; font-size:14px; }
+.chip { border:1px solid var(--line); border-radius:99px; padding:4px 10px; font-size:13px; background:var(--card); color:var(--ink); }
+.chip.on { color:#fff; border-color:transparent; }
+[data-z] { min-width:44px !important; } table { width:100%; border-collapse:collapse; font-size:14px; }
+td { border-top:1px solid var(--line); padding:6px 4px; } td input { width:80px; font:inherit; padding:4px; }
+.steps li { margin:6px 0; } input[type=text],input[type=password] { width:100%; padding:10px; font:inherit; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); }
+</style>
+</head>
+<body>
+<header><b>Ham 1</b><span>set 4711</span><span class="r">Wi-Fi · ham.local · cell 82 %</span></header>
+<main>
+
+<!-- 1 THE FIELD -->
+<section id="field" class="on">
+  <div class="row" style="justify-content:space-between;margin-bottom:8px">
+    <span class="mute">2 units of the set · Ham 1 the master</span>
+    <span class="row"><button class="b">ARM all</button><button class="b hold">DISARM all</button></span>
+  </div>
+  <div id="units"></div>
+  <p class="mute">STOP and OFF are held for a second — out of doors, gloved, a touch in passing does not end a flight.
+  Each command shows the unit's answer beside it: done, refused, out of range.</p>
+</section>
+
+<!-- 2 THE FLIGHT -->
+<section id="flight">
+  <div class="row" style="justify-content:space-between"><b>baker1</b><span class="badge ph2" id="fph">climb</span></div>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div>height<b class="big" id="fh">0</b><span class="unit">m above the start</span></div>
+    <div>vertical speed<b class="big" id="fv">0</b><span class="unit">m/s</span></div>
+  </div>
+  <div class="grid">
+    <div>highest<b id="fmax">0 m</b></div><div>acceleration<b id="fa">1.0 g</b></div>
+    <div>roll<b id="fr">0 °/s</b></div><div>frames lost<b id="fl">0</b></div>
+  </div>
+  <canvas id="fc" height="200"></canvas>
+  <div class="card" style="margin-top:12px"><b>Events</b><div id="fev"></div></div>
+  <p class="mute">The height and the speed are Ham's, from the pressure against the start's. The map below the events when the unit sends its fixes.</p>
+</section>
+
+<!-- 3 THE FINDING -->
+<section id="find">
+  <div class="row" style="justify-content:space-between"><b>baker1</b><span class="row">
+    <button class="chip on" style="background:var(--acc)" id="m1">arrow</button><button class="chip" id="m2">map</button></span></div>
+  <div class="card" style="text-align:center" id="arrowbox">
+    <svg viewBox="-60 -110 120 130" width="220" height="230"><path id="arrow" d="M0,-100 L40,-40 L14,-40 L14,10 L-14,10 L-14,-40 L-40,-40 Z" fill="var(--acc)"/></svg>
+    <div class="big" id="rs">−97</div><div class="unit">dBm · <span id="near">far</span></div>
+    <p class="mute">Hold Ham under the phone, its antenna ahead, and turn slowly: the arrow is longest and greenest
+    where the unit is. Your body shades the signal from behind.</p>
+  </div>
+  <div class="card" id="mapbox" style="display:none;text-align:center">
+    <div style="height:220px;border-radius:8px;background:repeating-linear-gradient(45deg,var(--bg),var(--bg) 10px,var(--line) 10px,var(--line) 11px);display:flex;align-items:center;justify-content:center">
+      OpenStreetMap / orthophoto · the fixes received · the last one marked</div>
+  </div>
+  <div class="card"><div class="mute">the last fix · 3D, 11 satellites, ±4 m, 0 min old</div>
+    <b>49.1951234 N, 16.6078901 E</b>
+    <div class="row" style="margin-top:8px"><button class="b">copy</button><button class="b">open in maps</button></div></div>
+  <div class="row"><button class="b">BEEP 10 s</button><button class="b">PING</button><button class="b">power −3 dB</button>
+    <label class="chip"><input type="checkbox" id="tone"> tone</label></div>
+</section>
+
+<!-- 4 THE RECORD -->
+<section id="record">
+  <div class="row" style="justify-content:space-between;margin-bottom:8px">
+    <span><b>S00042T01</b> <span class="mute">+ B · two files, one time line</span></span>
+    <button class="b">open files…</button></div>
+  <div class="row" id="chans" style="margin-bottom:8px"></div>
+  <canvas id="rc" height="260"></canvas>
+  <div class="row" style="margin:8px 0;justify-content:space-between">
+    <span class="row"><span class="mute">time</span><button class="b" data-z="tx-">−</button><button class="b" data-z="tx+">+</button>
+      <span class="mute">value</span><button class="b" data-z="ty-">−</button><button class="b" data-z="ty+">+</button><button class="b" data-z="all">whole</button></span>
+    <span class="mute" id="rwin"></span></div>
+  <p class="mute">Drag to scroll, pinch or the wheel to zoom (with Shift the value axis). Each pixel column drawn as the lowest
+  and highest value it covers, so a millisecond's peak shows in the whole flight. The dashed lines are the events;
+  the file's change at the apogee joins without a gap.</p>
+  <div class="row"><button class="b">CSV</button><button class="b">GPX</button><button class="b">ULog</button></div>
+</section>
+
+<!-- 5 THE UNIT -->
+<section id="unitv">
+  <div class="card"><div class="row" style="justify-content:space-between"><b>baker1 · its table</b>
+    <span class="badge ph4">CRC 9A41C2E0 = Ham's</span></div>
+    <table id="tab"></table>
+    <div class="row" style="margin-top:8px"><select class="b"><option>profile: rocket C6</option><option>glider</option></select>
+      <button class="b">read from the unit</button><button class="b p">send whole</button></div>
+    <p class="mute">A value out of its range is red and the table is not sent; a unit takes a table only whole.</p></div>
+  <div class="card"><b>The boot log</b> <span class="mute">— the last starts, the newest first</span>
+    <div class="ev"><span>#212 · magnet · 12 steps, 0.84 s</span><span class="mute">power-on</span></div>
+    <div class="ev"><span>#211 · cable · 12 steps</span><span class="mute">the run before: landed, file closed</span></div>
+    <button class="b" style="margin-top:6px">LOG_GET</button></div>
+  <div class="card"><b>The set</b><p class="mute">Copy TIROS.SET onto a unit's disk on the cable to pair it with this Ham.</p>
+    <div class="row"><button class="b">download TIROS.SET</button><button class="b hold">draw a new set</button></div></div>
+  <div class="card"><b>Ham</b><p class="mute">Its network, its password, its language.</p>
+    <button class="b" onclick="show('setup')">Wi-Fi…</button></div>
+</section>
+
+<!-- SETTING UP: the Wi-Fi given over the cable or Bluetooth -->
+<section id="setup">
+  <div class="card"><b>Give Ham your network</b>
+    <ol class="steps">
+      <li>Ham on the <b>USB cable</b> — this page opened over it — <i>or</i>
+        <button class="b">connect over Bluetooth</button> <span class="mute">(Chrome, Edge; an iPhone takes the cable)</span></li>
+      <li>Your phone's hotspot at <b>2.4 GHz</b> (an iPhone: Maximise Compatibility on).</li>
+      <li><input type="text" placeholder="network name" value="my phone"></li>
+      <li><input type="password" placeholder="its password"></li>
+    </ol>
+    <button class="b p">give it to Ham</button>
+    <p class="mute">Ham joins and answers: <b>ham.local · 172.20.10.5</b> — open it on the phone; the cable may go.</p></div>
+  <div class="card"><b>The page's lock</b><input type="password" placeholder="Ham's password, 12 characters at least">
+    <p class="mute">Checked by a challenge and its answer, never sent.</p></div>
+</section>
+</main>
+
+<nav>
+  <button class="on" data-v="field">Field</button><button data-v="flight">Flight</button>
+  <button data-v="find">Find</button><button data-v="record">Record</button><button data-v="unitv">Unit</button>
+</nav>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id), css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const PH = ["on","ready","climb","descent","landed"];
+function show(v) {
+  document.querySelectorAll("section").forEach(s => s.classList.toggle("on", s.id === v));
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  if (v === "record") drawRec();
+}
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => show(b.dataset.v));
+
+/* the field */
+const units = [ { n:"baker1", id:1, ph:1, cell:4.02, rx:-71, tx:-74, fix:"3D · 11 sat · ±4 m · now", seen:1 },
+                { n:"able3", id:3, ph:0, cell:3.71, rx:-88, tx:-90, fix:"2D · 5 sat · ±12 m · 2 min", seen:4 } ];
+$("units").innerHTML = units.map(u => `<div class="card">
+  <div class="row" style="justify-content:space-between"><b>${u.n} <span class="mute">#${u.id}</span></b><span class="badge ph${u.ph}">${PH[u.ph]}</span></div>
+  <div class="grid"><div>cell<b>${u.cell.toFixed(2)} V</b></div><div>Ham hears it<b>${u.rx} dBm</b></div>
+  <div>it hears Ham<b>${u.tx} dBm</b></div><div>heard<b>${u.seen} s ago</b></div></div>
+  <div class="mute">fix: ${u.fix}</div>
+  <div class="row" style="margin-top:8px"><button class="b p">${u.ph ? "DISARM" : "ARM"}</button><button class="b">START</button>
+  <button class="b hold">STOP</button><button class="b hold">OFF</button><span class="mute">${u.ph ? "ARM: done" : ""}</span></div></div>`).join("");
+
+/* the flight: a made-up rocket, replayed */
+const fc = $("fc"), fx = fc.getContext("2d"), hist = [];
+let t0 = performance.now(), hmax = 0, evs = [];
+function rocket(t) { /* height m, speed m/s, acceleration g */
+  if (t < 0) return [0,0,1];
+  if (t < 1.6) return [0.5*60*t*t, 60*t, 7.1];
+  const v0 = 96, h0 = 76.8, tt = t-1.6;
+  if (tt < v0/9.81) return [h0 + v0*tt - 4.9*tt*tt, v0 - 9.81*tt, 0.1];
+  const top = h0 + v0*v0/19.62, td = tt - v0/9.81, h = Math.max(0, top - 6*td);
+  return [h, h ? -6 : 0, h ? 1 : 1];
+}
+function tickFlight() {
+  const t = ((performance.now() - t0) / 1000) % 95 - 3, [h, v, a] = rocket(t);
+  if (t < -2.9) { hist.length = 0; hmax = 0; evs = []; }
+  hmax = Math.max(hmax, h); hist.push(h); if (hist.length > 600) hist.shift();
+  const ph = t < 0 ? 1 : v > 0 ? 2 : h > 0 ? 3 : 4;
+  if (ph >= 2 && !evs[2]) evs[2] = "T+0.00 s · launched";
+  if (ph >= 3 && !evs[3]) evs[3] = `T+${t.toFixed(2)} s · apogee ${hmax.toFixed(0)} m — the next file begins`;
+  if (ph === 4 && !evs[4]) evs[4] = `T+${t.toFixed(1)} s · landed`;
+  $("fph").textContent = PH[ph]; $("fph").className = "badge ph" + ph;
+  $("fh").textContent = h.toFixed(0); $("fv").textContent = v.toFixed(1);
+  $("fmax").textContent = hmax.toFixed(0) + " m"; $("fa").textContent = a.toFixed(1) + " g";
+  $("fr").textContent = (ph === 2 ? 180 + 40*Math.sin(t*3) : 0).toFixed(0) + " °/s";
+  $("fev").innerHTML = evs.filter(Boolean).map(e => `<div class="ev"><span>${e}</span></div>`).join("");
+  const W = fc.width = fc.clientWidth * devicePixelRatio, H = fc.height = 200 * devicePixelRatio;
+  fx.clearRect(0,0,W,H); fx.strokeStyle = css("--c1"); fx.lineWidth = 2*devicePixelRatio; fx.beginPath();
+  const top = Math.max(50, hmax*1.1);
+  hist.forEach((y,i) => { const X = i/600*W, Y = H - y/top*H*0.95; i ? fx.lineTo(X,Y) : fx.moveTo(X,Y); }); fx.stroke();
+  fx.fillStyle = css("--mute"); fx.font = 12*devicePixelRatio + "px system-ui"; fx.fillText(top.toFixed(0) + " m", 6, 14*devicePixelRatio);
+}
+setInterval(tickFlight, 100);
+
+/* the finding: the signal as one turns */
+let mode = 0;
+$("m1").onclick = () => { mode = 0; $("arrowbox").style.display=""; $("mapbox").style.display="none"; $("m1").className="chip on"; $("m1").style.background="var(--acc)"; $("m2").className="chip"; $("m2").style.background=""; };
+$("m2").onclick = () => { mode = 1; $("arrowbox").style.display="none"; $("mapbox").style.display=""; $("m2").className="chip on"; $("m2").style.background="var(--acc)"; $("m1").className="chip"; $("m1").style.background=""; };
+let ac;
+setInterval(() => {
+  const s = Math.sin(performance.now()/2500), dbm = -97 + 25*Math.max(0, s) + 3*Math.random();
+  const k = Math.min(1, Math.max(0, (dbm + 100) / 30));
+  $("rs").textContent = dbm.toFixed(0).replace("-", "−"); $("near").textContent = k > 0.66 ? "near" : k > 0.33 ? "nearer" : "far";
+  $("arrow").setAttribute("transform", `scale(1,${0.35 + 0.65*k})`);
+  $("arrow").setAttribute("fill", `hsl(${10 + 110*k} 70% 45%)`);
+  if ($("tone").checked) { ac = ac || new AudioContext(); const o = ac.createOscillator(); o.frequency.value = 300 + 900*k;
+    o.connect(ac.destination); o.start(); o.stop(ac.currentTime + 0.08); }
+}, 300);
+
+/* the record: an oscilloscope over a made-up flight, 80 s at 1 kHz then 100 Hz */
+const N = 80000, acc = new Float32Array(N), gyro = new Float32Array(N), alt = new Float32Array(N);
+for (let i = 0; i < N; i++) { const t = i/1000 - 3, [h,,a] = rocket(t);
+  acc[i] = a + (t > 0 && t < 1.6 ? 0.8*Math.sin(i*0.9) : 0.03*Math.sin(i*0.37)) + (i === 34000 ? 14 : 0);
+  gyro[i] = t > 0 && t < 9 ? 1.8 + Math.sin(t*3) : 0.02*Math.sin(i*0.11); alt[i] = h/40; }
+const CH = [ { n:"ACC |g|", d:acc, c:"--c1", on:1 }, { n:"GYRO roll", d:gyro, c:"--c2", on:1 }, { n:"height /40", d:alt, c:"--c3", on:1 } ];
+let x0 = 0, x1 = N, ylo = -2, yhi = 16;
+$("chans").innerHTML = CH.map((c,i) => `<button class="chip${c.on?" on":""}" data-c="${i}" style="${c.on?`background:${css(c.c)}`:""}">${c.n}</button>`).join("");
+document.querySelectorAll("#chans .chip").forEach(b => b.onclick = () => { const c = CH[b.dataset.c]; c.on ^= 1; b.classList.toggle("on"); b.style.background = c.on ? css(c.c) : ""; drawRec(); });
+function drawRec() {
+  const rc = $("rc"), g = rc.getContext("2d"), W = rc.width = rc.clientWidth * devicePixelRatio, H = rc.height = 260 * devicePixelRatio;
+  g.clearRect(0,0,W,H);
+  const Y = v => H - (v - ylo) / (yhi - ylo) * H, per = (x1 - x0) / W;
+  g.setLineDash([4,4]); g.strokeStyle = css("--mute"); [3000, 7400, 34000].forEach(s => { if (s>x0 && s<x1) { const X = (s-x0)/per; g.beginPath(); g.moveTo(X,0); g.lineTo(X,H); g.stroke(); } }); g.setLineDash([]);
+  CH.forEach(c => { if (!c.on) return; g.strokeStyle = css(c.c); g.fillStyle = css(c.c); g.lineWidth = devicePixelRatio;
+    if (per > 1) for (let X = 0; X < W; X++) { /* the envelope: min and max in the column */
+      let a = Math.floor(x0 + X*per), b = Math.min(N, Math.floor(x0 + (X+1)*per)), lo = Infinity, hi = -Infinity;
+      for (let i = a; i < b; i++) { const v = c.d[i]; if (v < lo) lo = v; if (v > hi) hi = v; }
+      if (lo <= hi) g.fillRect(X, Y(hi), 1, Math.max(1, Y(lo) - Y(hi))); }
+    else { g.beginPath(); for (let i = Math.floor(x0); i < Math.ceil(x1) && i < N; i++) { const X = (i-x0)/per; i>x0 ? g.lineTo(X, Y(c.d[i])) : g.moveTo(X, Y(c.d[i])); }
+      g.stroke(); if (1/per > 6) for (let i = Math.ceil(x0); i < x1 && i < N; i++) g.fillRect((i-x0)/per-2, Y(c.d[i])-2, 4, 4); } });
+  $("rwin").textContent = `${((x0)/1000-3).toFixed(3)} … ${((x1)/1000-3).toFixed(3)} s · ${((x1-x0)/1000).toFixed(3)} s`;
+}
+function zoom(kx, ky, cx = 0.5) { const w = (x1-x0)*kx, c = x0 + (x1-x0)*cx; x0 = Math.max(0, c - w*cx); x1 = Math.min(N, x0 + Math.max(20, w));
+  const m = (ylo+yhi)/2, hh = (yhi-ylo)/2*ky; ylo = m - hh; yhi = m + hh; drawRec(); }
+document.querySelectorAll("[data-z]").forEach(b => b.onclick = () => { const z = b.dataset.z;
+  if (z === "all") { x0 = 0; x1 = N; ylo = -2; yhi = 16; drawRec(); } else zoom(z==="tx+"?0.5:z==="tx-"?2:1, z==="ty+"?0.5:z==="ty-"?2:1); });
+const rc = $("rc"); let drag = null, pinch = null;
+rc.addEventListener("wheel", e => { e.preventDefault(); const k = e.deltaY > 0 ? 1.25 : 0.8, r = rc.getBoundingClientRect();
+  e.shiftKey ? zoom(1, k) : zoom(k, 1, (e.clientX - r.left) / r.width); }, { passive:false });
+rc.addEventListener("pointerdown", e => { drag = { x:e.clientX, a:x0, b:x1 }; rc.setPointerCapture(e.pointerId); });
+rc.addEventListener("pointermove", e => { if (!drag || pinch) return; const d = (e.clientX - drag.x) / rc.clientWidth * (drag.b - drag.a);
+  x0 = Math.max(0, drag.a - d); x1 = x0 + (drag.b - drag.a); if (x1 > N) { x1 = N; x0 = N - (drag.b - drag.a); } drawRec(); });
+rc.addEventListener("pointerup", () => drag = null);
+rc.addEventListener("touchmove", e => { if (e.touches.length !== 2) return; e.preventDefault();
+  const d = Math.abs(e.touches[0].clientX - e.touches[1].clientX); if (pinch) zoom(pinch / d, 1); pinch = d; }, { passive:false });
+rc.addEventListener("touchend", () => pinch = null);
+
+/* the unit's table */
+const T = [["NAME","baker1","—"],["REC_CLIMB","1000","0, 1–4000 Hz"],["REC_DESC","100","0, 1–4000 Hz"],["PRE_S","3","0–10 s"],
+           ["LAUNCH_G","1.0","0, 0.1–20 g"],["APOGEE_M","3","0, 1–100 m"],["BEACON_EVERY_S","60","5–3600 s"]];
+$("tab").innerHTML = T.map(r => `<tr><td><code>${r[0]}</code></td><td><input value="${r[1]}"></td><td class="mute">${r[2]}</td></tr>`).join("");
+</script>
+</body>
+</html>

@@ -42,14 +42,30 @@ oscilloscopes' peak detect — so a peak of a millisecond shows in half an hour;
 samples themselves. MUF's index (every 200 blocks) lets the page read only the window it shows,
 so a long record scrolls as a short one does.
 
-## The page — four views
+## The page — five views and the setting-up
 
-| view | what it shows |
-|---|---|
-| **the field** | every unit of the set: its name and number, phase, cell, the last signal both ways, the last fix and its age; ARM, DISARM, START, STOP, OFF |
-| **the flight** | the live view: the height from the pressure against the start's, the vertical speed from its change, the acceleration, the roll rate; the events as they come; the position on a map when it is sent |
-| **the finding** | below |
-| **the unit** | its table of settings, the user's tables to send; its boot log; the set's file to download |
+**A mockup to click through:** [`ham/mockup.html`](ham/mockup.html) — made-up data, opened from the
+file in any browser; the real page grows from it. Laid out for a phone held upright, a computer's
+window the same wider: **a bar at the top** — Ham's name, the set, how it is reached (Wi-Fi as
+`ham.local`, or the cable), Ham's own cell; **five views at the bottom**, under the thumb.
+
+| view | what it shows | what it does |
+|---|---|---|
+| **Field** | every unit of the set as a card: its name and number, the phase in colour, the cell, the signal both ways (Ham hears it, it hears Ham), the fix and its age, how long since it was heard | ARM, DISARM, START, STOP, OFF — each unit's and the set's at once; **STOP and OFF held for a second** (gloved, out of doors, a touch in passing ends nothing); the unit's answer beside the button — done, refused, out of range |
+| **Flight** | the unit chosen: **the height above the start and the vertical speed in large figures**, the highest, the acceleration, the roll, the frames lost; the height drawn as it comes; the events with their times (launched, apogee — the next file begins, landed); the map when fixes are sent | — |
+| **Find** | the arrow or the map (below); the last fix with its kind, satellites, accuracy and age | **copy** the coordinates, **open in maps** (the phone's own map application, which knows where the phone is); BEEP, PING, the power stepped down; a tone rising with the signal |
+| **Record** | the oscilloscope (above) over the files of a session — **the files of the phases laid on one time line**, as they join; the channels as coloured chips switched on and off; the events as dashed lines | drag to scroll; pinch or the wheel to zoom the time, with Shift the values; − + on each axis and *whole*; CSV, GPX, ULog |
+| **Unit** | its table of settings with each one's range, a value out of it red; whether its CRC is Ham's; its boot log | read the table, send it **whole** (a profile, named — "rocket C6", "glider"); LOG_GET; download the set's `TIROS.SET`, draw a new set (held) |
+| *setting up* | Ham's network and its lock — reached from *Unit* | the Wi-Fi's name and password given over the cable or Bluetooth (below); the page's password |
+
+**What a page from Ham cannot do:** Ham serves it over plain HTTP, and a browser lends the phone's
+position and Bluetooth only to a secure page (HTTPS, or a file). So **the page shows no distance
+from the phone to the unit** — *open in maps* hands the fix to the phone's map application, which
+has the phone's position — and **Bluetooth is used from the setting-up page** served over HTTPS
+from the project's pages, or opened from a file.
+
+**Its words** in English, Czech and Russian, as the profile's pages; the language chosen on the
+page, its tables in Ham.
 
 ## The finding — as Apple's *Find My* finds a tag
 
