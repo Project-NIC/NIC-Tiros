@@ -81,12 +81,12 @@ antenna — or the arrow drawn on its box — pointing ahead, and one walks.
 - Near the unit Ham lowers its power step by step (POWER); BEEP for the last metres; PING for a
   quick answer.
 
-**The map,** for getting near — by car, by bike, on foot: **OpenStreetMap and an open
-orthophoto**, two layers to switch, their detail following the zoom by themselves as such maps
-do; the map library (Leaflet) carried in Ham; every fix received set on it by itself, the last
-one marked. The tiles come over the phone's own mobile data — without it, the coordinates alone,
-to be copied into any map application to navigate by. The orthophoto for Czechia
-ČÚZK's, its terms of use to be read.
+**The map,** for getting near — by car, by bike, on foot: **OpenStreetMap's tiles, or ČÚZK's WMS
+for Czechia — the orthophoto, the base map (ZTM), and the cadastre over either**, switched on the
+map, their detail following the zoom by themselves; the map library (Leaflet) carried in Ham;
+every fix received set on it by itself, the last one marked. The tiles and the WMS's images come
+over the phone's own mobile data — without it, the coordinates alone, to be copied into any map
+application to navigate by. ČÚZK's terms of use to be read.
 
 The height and the vertical speed are Ham's, from the pressures (`RADIO.md`, 2); the unit sends
 the barometer's own number.
