@@ -31,9 +31,10 @@ in [`parts.md`](parts.md), the sums in [`calc/`](calc/), the reasons in [`WHY.md
 - ✗ lithium-polymer (LiFePO4 for the shocks and its safety).
 
 ## Contact
-- ✔ GCT USB4720, a sealed USB-C for USB 2.0, potted from inside; operating −30 °C — proposed,
-  still open.
-- ○ Samtec BRU (plastic shell, IP67); Amphenol LTW UC-00PFFP-QS8001 (IP68).
+- ✔ **M8, D-coded, four poles, male on the unit, all plastic with brass gold-plated pins** — as
+  Heimdall's field units' round connectors; screwed on, potted from inside; one cable for both units.
+- ✗ GCT USB4720, a sealed USB-C (not at LCSC or JLCPCB; any phone cable fits, but it is not
+  screwed on); ✗ Samtec BRU, Amphenol LTW UC-00PFFP-QS8001.
 - ✗ a magnetic contact (its magnets beside the magnetometer); round connectors with their own
   leads (Binder 620 short of −40 °C, Switchcraft EN3, Bulgin PXP).
 

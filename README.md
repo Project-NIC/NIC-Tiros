@@ -15,7 +15,7 @@ fraction of what such trackers are sold for. It steers nothing.**
 
 > ⚠️ **A concept.** The purpose, the requirements, the architecture, the sums and the parts are
 > settled; of the detail, the radio's frames, the settings, the boot log, the firmware's states and
-> Ham's page are agreed, the antennas chosen; the contact is still being weighed; no board is drawn
+> Ham's page are agreed, the antennas and the contact chosen; no board is drawn
 > and nothing is built. The project grows in steps — purpose, requirements, architecture,
 > principle, parts, detail — each begun when the one before it is settled.
 
@@ -30,7 +30,7 @@ fraction of what such trackers are sold for. It steers nothing.**
 <p align="center"><img src="pictures/Able.jpg" width="400" alt="Able"/> <img src="pictures/Baker.jpg" width="400" alt="Baker"/></p>
 
 Baker and Able are the same idea — **a narrow board, the GNSS antenna out of one end, the LoRa
-wire out of the other, the contact on the side, the cell on a connector** — one construction,
+wire out of the other, the contact — a sealed M8 — in an end or on the side, the cell on a connector** — one construction,
 **Goddard**, and one firmware, **Hamilton**. Their housings, **Mercury** and **Gemini**, are a
 recommendation to the builder, not a drawn box: a cigar, a tin, whatever the model has room for.
 

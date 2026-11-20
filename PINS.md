@@ -39,7 +39,7 @@ P0. **To check against Nordic's QFN52 reference layout** before the board is dra
 | P0.09 | 30 | pressure INT | in |
 | P0.03 · clock | 25 | field INT | in |
 | P0.04 · clock | 26 | Able's card-detect, or free | in |
-| D+, D− | 19, 20 | USB, the USB4720 | — |
+| D+, D− | 19, 20 | USB, the M8 contact's poles 1 and 3 (one pair) | — |
 | XC1, XC2 | 37, 38 | the 32 MHz crystal | — |
 | ANT | 34 | the radio, unused — terminated as the reference layout says | — |
 

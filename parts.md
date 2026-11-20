@@ -11,7 +11,7 @@ sheet is not read. No pins here ([`PINS.md`](PINS.md)).
 | processor | **Nordic nRF54LM20A** | QFN52, 6 × 6 mm | USB high-speed for the readout; sleep 4.3 µA with all RAM; 7 serial interfaces, 10 clock pins for the buses; −40 to +85 °C | read |
 | power | **Nordic nPM1300** | QFN32, 5 × 5 mm | charging from the contact's 5 V (USB or any), 32–800 mA; dynamic power path (a weak source taken as it comes); the rails, the cell's gauge, LEDs, load switches; IQ 0.8 µA | read |
 | wake | **TI DRV5032ZE** (as NIC-Strelka's), or the AJ at 9.5 mT for a weaker magnet — a Hall switch, open-drain, on the nPM1300's SHPHLD | SOT-23 / X2SON | a magnet held to the sealed case wakes the unit from the ship mode (370 nA); 1.6 µA typical at 3 V, 20 Hz; no glass to break — a reed (Coto CT05, 100 G) weighed, `WHY.md` | read (NIC-Strelka's sheet) |
-| contact | **GCT USB4720** — proposed, still open | USB-C, mid-mount | USB 2.0 and any 5 V, IP67 mated and unmated, 20 000 matings, no magnet beside the magnetometer | read — operating −30 °C, **accepted**: it sits idle in the cold, and is potted from inside for its seal; its shell's metal on its drawing, to read |
+| contact | **M8, D-coded, four poles** (IEC 61076-2-104), a panel socket, **male on the unit** — Baker and Able alike, one cable | Ø 8 mm thread; some Ø 10–13 mm over its nut, 15–20 mm deep with its solder cups | USB 2.0 (VBUS, D+, D−, GND) and any 5 V; IP67 mated, capped when not; screwed on; soldered from inside and potted | **all plastic** — body and coupling nut; the pins **brass, gold-plated** or otherwise finished, **no iron or steel** beside the magnetometer (the nickel under the gold a few µm); to be found among the makers' parts |
 | motion | **ST LSM6DSV320X** | LGA-14 | ±16 g and ±320 g at once, gyro ±4000 °/s, to 7.68 kHz, FIFO 4.5 KB; 0.8 mA | read |
 | magnetometer | **Memsic MMC5983MA** | MMC: LGA 3 × 3 mm; RM3100: three coils + its chip | both ±800 µT. MMC: 40 nT RMS, to 1000 Hz, SET/RESET, −40 to +105 °C. RM3100: 15–30 nT, three axes ~147–533 Hz, −40 to +85 °C | read both |
 | pressure | **Bosch BMP585** | LGA-8, 3.25 × 3.25 mm | the apogee: 0.15–0.78 Pa RMS by OSR, to 622 Hz; gel-filled for the wet port; −40 to +85 °C | read |
@@ -66,7 +66,7 @@ it keeps at its working voltage (Strelka's rules).
 | memory, Baker | **CSNP1GCR01-BOW** | CS V1.1 | Strelka's code, in its pages |
 | memory, Able | a microSD socket, push-push — a basic part if one is | — | in EasyEDA |
 | radio | **Seeed Wio-SX1262**, the IPEX version | Seeed V1.0 | Seeed's own; not at LCSC as far as known |
-| contact | **GCT USB4720** (rev A2) | GCT's spec | not at LCSC or JLCPCB (18 Nov 2026) — DigiKey USB4720-03-A; hand-soldered or sent to JLCPCB as a consigned part |
+| contact | **M8 D-coded four-pole male panel socket, all plastic, brass gold-plated pins** — the maker's part to be found against that | the chosen maker's | panel-mounted and hand-wired, not placed by JLCPCB |
 | GNSS socket | a U.FL receptacle (Hirose U.FL-R-SMT-1 or its LCSC equal) | — | in EasyEDA |
 | cell | **JST SM03B-SRSS-TB** (SH, 3 pins, side entry) | NIC-Strelka's boards | its LCSC equal, as there |
 | coils for the bucks | as Strelka's: the MLP2016 power inductor | NIC-Strelka's boards | as there |
@@ -135,3 +135,28 @@ RadioCore RCC6); any board with an SX1262 at 868 MHz, an antenna socket and a ce
    product page) is wanted when the board is drawn — for its pins and the unused
    antenna pin's termination.
 4. The sheets marked "to read".
+
+## The contact — M8, as NIC-Heimdall's field units
+
+**An M8 D-coded four-pole socket**, the industry's small round connector, as Heimdall's field units
+take M8 and M12: cheap, made by many, an O-ring in its face, **soldered from inside and potted**, so
+water past the seal stops at the potting. **Four poles are USB 2.0 exactly** — the data on one of the
+D-coding's two pairs, **1 D+, 3 D−**, the supply on the other, **2 VBUS, 4 GND** — the record out, the setting up, the charge and any 5 V (a power
+bank, the plane's supply). **Screwed on**, it does not shake loose when a plane feeds Able in
+flight.
+
+- **D-coded, not A-coded:** the coding keys a connector, not its pin count — a three-pole plug
+  enters a four-pole socket of the same coding. Heimdall's probes are on M8 A-coded; Tiros's USB on
+  D-coded never meets them, so a laptop's 5 V never reaches a probe's rail.
+- **Male on the unit**, the fed side, as Heimdall's gender rule; the cable female; a cap on the unit
+  when nothing is plugged.
+- **All plastic, nothing magnetic:** the body and the coupling nut plastic, the pins **brass and
+  gold-plated** (or otherwise finished) — **no iron, no steel**, the magnetometer being on the same
+  board. The part is to be found against that; a stainless body is refused.
+- **The speed:** USB full speed goes through any connector — Baker's 128 MB in some 2 min. Able's
+  card wants high speed (480 Mbit/s), which the D-coding's shielded pairs and a short cable carry;
+  tried on the bench. At full speed alone Able's 8 GB would take some 2½ hours.
+- **The room:** Baker's 20 mm body (17–18 mm inside) takes the socket **through an end**, not the
+  side; Able's box anywhere.
+- **The cable:** M8 D-coded female to USB-C, the project's own — bought as an M8 cordset with open
+  ends and a USB-C plug soldered on, or bought whole where offered.
