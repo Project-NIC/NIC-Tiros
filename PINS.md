@@ -38,7 +38,7 @@ P0. **To check against Nordic's QFN52 reference layout** before the board is dra
 | P0.08 | 29 | the nPM1300's interrupt | in, GPIOTE30 |
 | P0.09 | 30 | pressure INT | in |
 | P0.03 · clock | 25 | field INT | in |
-| P0.04 · clock | 26 | Able's card-detect, or free | in |
+| P0.04 · clock | 26 | LoRa RF_SW — the module's pin 1, high to receive, low to send (as Seeed's kit drives it) | out |
 | D+, D− | 19, 20 | USB, the M8 contact's poles 1 and 3 (one pair) | — |
 | XC1, XC2 | 37, 38 | the 32 MHz crystal | — |
 | ANT | 34 | the radio, unused — terminated as the reference layout says | — |
@@ -47,5 +47,6 @@ P0. **To check against Nordic's QFN52 reference layout** before the board is dra
 **Not on the processor:** the LEDs and the magnet's Hall switch (the nPM1300's own pins, as NIC-Strelka's
 boards); the rails switched by the nPM1300 over I2C — BUCK1 3.0 V for the processor and LoRa,
 BUCK2 3.0 V for the memory, load switch 1 for the GNSS, load switch 2 for the sensors
-([`parts.md`](parts.md), *The power tree*). The humidity sensor has no interrupt; the GNSS's
+([`parts.md`](parts.md), *The power tree*). **Able's card is found by its answer**, not by the socket's switch — P0.04 went to the LoRa module's
+RF_SW (21 Nov 2026). The humidity sensor has no interrupt; the GNSS's
 EXTINT, not needed, left open.
