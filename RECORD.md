@@ -42,7 +42,7 @@ One group, one unit: latitude and longitude apart from the height.
 | `ACC` | 0x10 | 0, 3 | `h` | g | 488 × 10⁻⁶ | the accelerometer, ±16 g |
 | `ACC_HG` | 0x10 | 3, 3 | `h` | g | 10417 × 10⁻⁶ | the high-g channel, ±320 g |
 | `GYRO` | 0x10 | 6, 3 | `h` | dps | the sheet's, by range | the gyroscope |
-| `MAG` | 0x10 | 9, 3 | `h` | T | 25 × 10⁻⁹ | the magnetometer, 0.25 mG |
+| `MAG` | 0x10 | 9, 3 | `h` | T | 24414 × 10⁻¹² | the magnetometer in 16 bits: 1/4096 G, 0.244 mG |
 | `PRESS` | 0x10 | 12, 1 | `i` | Pa | 15625 × 10⁻⁶ | the pressure, 1/64 Pa |
 | `PTEMP` | 0x11 | 0, 1 | `h` | °C | 1 × 10⁻² | the barometer's temperature |
 | `RH` | 0x11 | 1, 1 | `h` | % | 1 × 10⁻² | the humidity |

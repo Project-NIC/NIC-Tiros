@@ -9,7 +9,7 @@ static const struct muf_group groups[] = {
 	G(0x10, 0, 3, 'h', -6, 488, "ACC", "g"),
 	G(0x10, 3, 3, 'h', -6, 10417, "ACC_HG", "g"),
 	G(0x10, 6, 3, 'h', -3, 140, "GYRO", "dps"),    /* the LSM6DSV320X at ±4000 dps: 140 mdps */
-	G(0x10, 9, 3, 'h', -9, 25, "MAG", "T"),
+	G(0x10, 9, 3, 'h', -12, 24414, "MAG", "T"), /* the MMC5983MA in 16 bits: 1/4096 G */
 	G(0x10, 12, 1, 'i', -6, 15625, "PRESS", "Pa"),
 	G(0x11, 0, 1, 'h', -2, 1, "PTEMP", "degC"),
 	G(0x11, 1, 1, 'h', -2, 1, "RH", "%"),
