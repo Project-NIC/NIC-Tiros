@@ -119,7 +119,8 @@ known position, never a wandering one.
 
 ## 2 The live view — 22 B, with the GNSS 37 B
 
-Before the start on channel B, if set (`LIVE_READY_HZ`); in flight on channel B or A (`LIVE_CHANNEL`).
+Before the start on channel B, if set (`LIVE_READY_HZ`); in flight on channel B or A (`LIVE_CHANNEL`);
+**and one more at the landing, its phase 4** — so a Ham turns to the beacon's channel at once.
 
 | bytes | the field | |
 |---|---|---|
