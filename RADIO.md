@@ -57,7 +57,8 @@ So **a Ham sends a command to a unit on the pad at once; to one flying or landed
 command and sends it the moment one of that unit's frames is heard**, on the same channel and mode,
 within its `LISTEN_MS`. A landed unit's radio sleeps between beacons — its cell lasts the days of a
 search. **Ham listens on B in the live view's mode while any unit is on the pad or flying, and on
-A in the beacon's mode once every unit heard has landed.** Written once for both sides
+A in the beacon's mode once every unit heard has landed — or a flying one has been silent a minute,
+lost on B and looked for by its beacon on A.** One receiver: no listening interleaved. Written once for both sides
 (`firmware/common/listen.c`).
 
 ## The key — as NIC-Strelka, as LoRaWAN
